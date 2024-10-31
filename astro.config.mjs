@@ -1,6 +1,6 @@
 // @ts-check
-import { defineConfig } from "astro/config"
-import starlight from "@astrojs/starlight"
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,18 +9,43 @@ export default defineConfig({
   integrations: [
     starlight({
       logo: {
-        src: "./src/assets/alumnium-icon.png",
+        src: "./public/favicon.svg",
         alt: "Alumnium",
       },
       title: "Alumnium",
       social: {
         github: "https://github.com/alumnium-hq/alumnium",
       },
+      favicon: "./public/favicon.svg",
+      head: [
+        {
+          tag: "link",
+          attrs: {
+            rel: "icon",
+            href: "/favicon.ico",
+            sizes: "32x32",
+          },
+        },
+        {
+          tag: "link",
+          attrs: {
+            rel: "icon",
+            href: "/favicon.svg",
+            type: "image/svg+xml",
+          },
+        },
+        {
+          tag: "link",
+          attrs: {
+            rel: "apple-touch-icon",
+            href: "/apple-touch-icon.png",
+          },
+        },
+      ],
       sidebar: [
         {
           label: "Guides",
           items: [
-            // Each item here is one entry in the navigation menu.
             {
               label: "How to set up Alumnium in your tests",
               slug: "guides/example",

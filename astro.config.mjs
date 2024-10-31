@@ -1,9 +1,11 @@
 // @ts-check
-import { defineConfig } from "astro/config";
-import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config"
+import starlight from "@astrojs/starlight"
 
 // https://astro.build/config
 export default defineConfig({
+  // https://docs.astro.build/en/guides/deploy/
+  site: "https://alumnium.ai",
   integrations: [
     starlight({
       logo: {
@@ -12,7 +14,7 @@ export default defineConfig({
       },
       title: "Alumnium",
       social: {
-        github: "https://github.com/p0deje/alumnium",
+        github: "https://github.com/alumnium-hq/alumnium",
       },
       sidebar: [
         {

@@ -4,7 +4,6 @@ import starlight from "@astrojs/starlight";
 
 // https://astro.build/config
 export default defineConfig({
-  // https://docs.astro.build/en/guides/deploy/
   site: "https://alumnium.ai",
   integrations: [
     starlight({
@@ -12,9 +11,13 @@ export default defineConfig({
         src: "./public/favicon.svg",
         alt: "Alumnium",
       },
+      editLink: {
+        baseUrl: 'https://github.com/alumnium-hq/alumnium.github.io/edit/main/',
+      },
       title: "Alumnium",
       social: {
         github: "https://github.com/alumnium-hq/alumnium",
+        slack: "https://seleniumhq.slack.com/channels/alumnium",
       },
       favicon: "./public/favicon.svg",
       head: [
@@ -44,14 +47,26 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: "Guides",
+          label: "Getting Started",
           items: [
             {
-              label: "How to set up Alumnium in your tests",
-              slug: "guides/example",
+              label: "Overview",
+              slug: "docs",
             },
-          ],
-        },
+            {
+              label: "Installation",
+              slug: "docs/getting-started/installation",
+            },
+            {
+              label: "Configuration",
+              slug: "docs/getting-started/configuration",
+            },
+            {
+              label: "Writing First Test",
+              slug: "docs/getting-started/writing-first-test",
+            },
+          ]
+        }
       ],
     }),
   ],

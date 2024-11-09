@@ -1,6 +1,5 @@
 name: Deployment
 on:
-  pull_request:
   push:
     branches:
       - main
@@ -26,9 +25,8 @@ jobs:
         with:
           path: dist/
 
-  deploy-production:
-    name: Deploy to Production
-    if: github.event_name != 'pull_request'
+  release:
+    name: Release
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -37,17 +35,3 @@ jobs:
     steps:
       - uses: actions/deploy-pages@v4
         id: deployment
-
-  deploy-preview:
-    name: Deploy to Preview
-    if: github.event_name == 'pull_request'
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: preview
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/deploy-pages@v4
-        id: deployment
-        with:
-          preview: true

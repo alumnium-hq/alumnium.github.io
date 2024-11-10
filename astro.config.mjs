@@ -1,10 +1,13 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, sharpImageService } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://alumnium.ai",
+  image: {
+    service: sharpImageService({ limitInputPixels: false }),
+  },
   integrations: [
     starlight({
       logo: {
@@ -65,9 +68,18 @@ export default defineConfig({
               label: "Writing First Test",
               slug: "docs/getting-started/writing-first-test",
             },
-          ]
+          ],
+        },
+        {
+          label: "Guides",
+          items: [
+            {
+              label: "Do Actions",
+              slug: "docs/guides/actions",
+            },
+          ],
         }
-      ],
+      ]
     }),
   ],
 });

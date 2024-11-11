@@ -77,6 +77,10 @@ export default defineConfig({
               label: "Do Actions",
               slug: "docs/guides/actions",
             },
+            {
+              label: "Check Verifications",
+              slug: "docs/guides/verifications",
+            },
           ],
         }
       ]

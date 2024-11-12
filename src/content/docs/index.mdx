@@ -17,17 +17,18 @@ hero:
 ---
 
 import { Card, CardGrid } from "@astrojs/starlight/components";
+import overview from "../../assets/overview.gif";
 
 <CardGrid stagger>
   <Card title="Powered by AI" icon="rocket">
     Leverage the full power and capabilities of LLMs.
   </Card>
   <Card title="Built for development teams" icon="heart">
-    Put here some GIF or text.
+    Written by software and QA engineers alike.
   </Card>
   <Card title="Support for web" icon="pen">
-    Alumnium works together with [Selenium](https://www.selenium.dev/). Mobile
-    support is coming soon.
+    Alumnium works together with [Selenium](https://www.selenium.dev/), de-facto standard for web automation.
+    Mobile support is coming soon.
   </Card>
   <Card title="Control your test cases" icon="star">
     Keep the control of your test cases, and leave interaction with the
@@ -37,11 +38,9 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
 
 ## How it works
 
-<CardGrid>
-  <Card title="Check out what Alumnium can do" icon="magnifier">
-    Put here some GIF or text.
-  </Card>
-  <Card title="Learn more" icon="open-book">
-    Read more in [the Alumnium Docs](docs/).
-  </Card>
-</CardGrid>
+<Card title="Check out what Alumnium can do" icon="magnifier">
+  <img src={overview.src} width={overview.width} height={overview.height} alt="Alumnium overview" />
+</Card>
+<Card title="Learn more" icon="open-book">
+  Read more in [the Alumnium Docs](docs/).
+</Card>

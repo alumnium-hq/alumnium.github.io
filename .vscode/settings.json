@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
-        "Alumnium"
-    ]
+        "Alumnium",
+        "alumnium"
+    ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

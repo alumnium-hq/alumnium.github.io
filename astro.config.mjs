@@ -14,9 +14,6 @@ export default defineConfig({
         src: "./public/favicon.svg",
         alt: "Alumnium",
       },
-      editLink: {
-        baseUrl: 'https://github.com/alumnium-hq/alumnium.github.io/edit/main/',
-      },
       title: "Alumnium",
       social: {
         github: "https://github.com/alumnium-hq/alumnium",
@@ -82,8 +79,8 @@ export default defineConfig({
               slug: "docs/guides/verifications",
             },
           ],
-        }
-      ]
+        },
+      ],
     }),
   ],
 });

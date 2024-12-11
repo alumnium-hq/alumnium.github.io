@@ -72,8 +72,6 @@ OK
 If you are getting errors about missing API keys, make sure you [configured][1] Alumnium and try again!
 ::::
 
-
-
 ### Add Actions
 
 Now let's add some actions that Alumnium should **do** on the page. Our test needs to search for Selenium, so let's use this exact command:
@@ -237,4 +235,4 @@ Congratulations, we have completed our first test!
 
 
 
-[1]: configuration
+[1]: /docs/getting-started/configuration

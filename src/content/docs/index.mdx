@@ -3,9 +3,10 @@ title: Alumnium
 description: Pave the way towards AI-powered test automation
 template: splash
 hero:
-  tagline: Testing doesn’t have to be tedious! </br> Alumnium bridges the gap between human and automated testing by using AI to translate your test instructions into executable commands.
+  tagline: Alumnium bridges the gap between human and automated testing by using AI to translate your test instructions into executable commands.
   image:
     file: ../../assets/logo.svg
+    alt: Alumnium logo
   actions:
     - text: Get started
       link: /docs
@@ -19,23 +20,19 @@ hero:
 ---
 
 import { Card, CardGrid, LinkButton } from "@astrojs/starlight/components";
+import logo from "../../assets/logo.svg";
 import overview from "../../assets/overview.gif";
+import chrome from "../../assets/chrome.svg";
+import python from "../../assets/python.svg";
+import IntegratesWith from "../../components/IntegratesWith.astro";
+import SupportedBy from "../../components/SupportedBy.astro";
+import FeaturesBlock from "../../components/FeaturesBlock.astro";
 
-<CardGrid stagger>
-  <Card title="Powered by AI" icon="rocket">
-    Leverage the full power and capabilities of LLMs.
-  </Card>
-  <Card title="Built for Development Teams" icon="heart">
-    Written by software and QA engineers alike.
-  </Card>
-  <Card title="Support for Web" icon="laptop">
-    Alumnium works together with [Selenium](https://www.selenium.dev/), de-facto standard for web automation. Mobile
-    support is coming soon.
-  </Card>
-  <Card title="Control Your Test Cases" icon="approve-check">
-    Don't sacrifice precision or control of your test cases. Leave interaction with the application to AI.
-  </Card>
-</CardGrid>
+<IntegratesWith />
+
+<FeaturesBlock />
+
+<SupportedBy />
 
 ## How it works
 

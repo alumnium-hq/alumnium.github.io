@@ -1,8 +1,9 @@
 ---
-const { src, alt } = Astro.props;
+const { src, alt, className } = Astro.props;
 ---
+
 <img
-  class="col-span-1 max-h-12 w-full object-contain"
+  class:list={["col-span-1 max-h-12 w-full object-contain dark:brightness-0 dark:invert dark:opacity-50", className]}
   src={src}
   alt={alt}
   width="158"

@@ -1,0 +1,14 @@
+---
+import Logo from "./Logo.astro"
+import microsoftForStartups from "../assets/microsoft-for-startups.jpg";
+import awsForStartups from "../assets/aws-for-startups.svg";
+---
+<div class="bg-white py-8 not-content">
+  <div class="mx-auto max-w-7xl">
+    <h2 class="text-center text-lg/8 font-semibold text-gray-900">Supported by</h2>
+    <div class="mx-auto mt-10 grid max-w-lg grid-cols-2 items-center gap-x-8 gap-y-10">
+      <Logo src={microsoftForStartups.src} alt="Microsoft for Startups" />
+      <Logo src={awsForStartups.src} alt="AWS for Startups" />
+    </div>
+  </div>
+</div>

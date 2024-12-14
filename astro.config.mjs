@@ -2,6 +2,8 @@
 import { defineConfig, sharpImageService } from "astro/config";
 import starlight from "@astrojs/starlight";
 
+import tailwind from "@astrojs/tailwind";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://alumnium.ai",
@@ -81,6 +83,11 @@ export default defineConfig({
           ],
         },
       ],
+      components: {
+        ThemeSelect: "./src/overrides/ThemeSelect.astro", // DIsable the theme select until we fix the new blocks in dark theme
+      },
+      customCss: ["./src/tailwind.css"],
     }),
+    tailwind({ applyBaseStyles: false }),
   ],
 });

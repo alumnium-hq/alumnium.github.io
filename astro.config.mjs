@@ -83,9 +83,6 @@ export default defineConfig({
           ],
         },
       ],
-      components: {
-        ThemeSelect: "./src/overrides/ThemeSelect.astro", // DIsable the theme select until we fix the new blocks in dark theme
-      },
       customCss: ["./src/tailwind.css"],
     }),
     tailwind({ applyBaseStyles: false }),

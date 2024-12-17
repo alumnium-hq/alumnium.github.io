@@ -40,12 +40,14 @@ al.check("task 'buy milk' is not completed")
 ![A screen recording of Alumnium passing when 1 out of 2 tasks is completed](../../../../assets/check-tasks-concrete.gif)
 
 
-[1]: /docs/guides/actions#specific-instructions
-
 ### Vision
 
-:::note
+:::caution
 Vision verifications are significantly more expensive and slower, so resort to them only when needed.
+:::
+
+:::note
+Meta Llama 3.2 [does not support vision verifications][2] yet.
 :::
 
 Occasionally, the web page state is not enough for Alumnium to perform the check. In this case, instruct it to take a screenshot of the page and include it in the verification decision. This is useful when you need to check the visual representation of elements or their spatial relationships.
@@ -71,3 +73,7 @@ al.check("'buy bread' title font style is strikethrough", vision=True)
 ```
 
 Keep in mind, that the screenshot is taken for the visible part of the page.
+
+
+[1]: /docs/guides/actions#specific-instructions
+[2]: https://github.com/boto/boto3/issues/4374

@@ -42,6 +42,12 @@ export ALUMNIUM_MODEL="google"
 export GOOGLE_API_KEY="..."
 ```
 
+If you are on a [free plan][7] and encounter 429 errors, configure Alumnium to delay its requests to stay within the usage limits. Note that this will significantly increase the duration of your tests!
+
+```bash
+export ALUMNIUM_RPM_LIMIT="15"
+```
+
 ### OpenAI
 
 To use OpenAI as an AI provider in Alumnium:

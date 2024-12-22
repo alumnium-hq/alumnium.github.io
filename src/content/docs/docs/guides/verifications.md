@@ -1,5 +1,5 @@
 ---
-title: Check Verifications
+title: Checking Verifications
 description: How to tell Alumnium to verify
 ---
 
@@ -73,6 +73,10 @@ al.check("'buy bread' title font style is strikethrough", vision=True)
 ```
 
 Keep in mind, that the screenshot is taken for the visible part of the page.
+
+### Flakiness
+
+Alumnium automatically retries verification upon an assertion error if the page content is still loading. This is usually sufficient to handle common scenarios like checking for an element that is not yet displayed on the page
 
 
 [1]: /docs/guides/actions#specific-instructions

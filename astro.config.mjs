@@ -73,14 +73,22 @@ export default defineConfig({
           label: "Guides",
           items: [
             {
-              label: "Do Actions",
+              label: "Doing Actions",
               slug: "docs/guides/actions",
             },
             {
-              label: "Check Verifications",
+              label: "Checking Verifications",
               slug: "docs/guides/verifications",
             },
+            {
+              label: "Self-hosting LLMs",
+              slug: "docs/guides/self-hosting",
+            },
           ],
+        },
+        {
+          label: "Reference",
+          slug: "docs/reference",
         },
       ],
       customCss: ["./src/tailwind.css"],

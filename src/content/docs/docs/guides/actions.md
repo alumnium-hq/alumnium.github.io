@@ -13,7 +13,7 @@ al.do("search for Selenium")
 
 Alumnium would likely determine that it needs to type "Selenium" into the search box and either press the "Enter" key or click a "Search" button.
 
-### Supported Actions
+## Supported Actions
 
 The following actions are currently supported:
 
@@ -25,7 +25,7 @@ The following actions are currently supported:
 
 Tailoring instructions for Alumnium takes some time and experimentation and you can achieve the best results by following the guidelines listed below.
 
-### Specific Instructions
+## Specific Instructions
 
 Alumnium behaves in a more expected manner when the instructions are more concrete.
 
@@ -51,7 +51,7 @@ al.do("mark all tasks completed using 'Toggle All' button")
 
 ![A screen recording of Alumnium mark tasks completed at once](../../../../assets/mark-tasks-at-once.gif)
 
-### One Action At a Time
+## One Action At a Time
 
 Alumnium does not (yet) support performing actions that span over multiple page changes, so you need to tailor instructions based on the *current state of the web page*.
 
@@ -64,6 +64,6 @@ al.do("delete the 'buy milk' task")
 
 ![A screen recording of Alumnium hovering and deleting task](../../../../assets/delete-task.gif)
 
-### Flakiness
+## Flakiness
 
 Alumnium automatically retries actions when errors occur during their execution. This is usually sufficient to handle common scenarios like changes to page content during interaction or issues caused by an overzealous LLM.

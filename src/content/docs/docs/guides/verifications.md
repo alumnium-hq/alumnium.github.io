@@ -17,7 +17,7 @@ If the search results don't contain a link to `selenium.dev`, Alumnium raises an
 AssertionError: The search results do not include 'selenium.dev'. The results shown in the ARIA tree include links to 'foobar2000', 'Wikipedia', and other related topics, but there is no mention of 'selenium.dev'.
 ```
 
-### Specific Verifications
+## Specific Verifications
 
 Similarly to [actions][1], Alumnium works better when the verifications are concrete.
 
@@ -40,7 +40,7 @@ al.check("task 'buy milk' is not completed")
 ![A screen recording of Alumnium passing when 1 out of 2 tasks is completed](../../../../assets/check-tasks-concrete.gif)
 
 
-### Vision
+## Vision
 
 :::caution
 Vision verifications are significantly more expensive and slower, so resort to them only when needed.
@@ -74,7 +74,7 @@ al.check("'buy bread' title font style is strikethrough", vision=True)
 
 Keep in mind, that the screenshot is taken for the visible part of the page.
 
-### Flakiness
+## Flakiness
 
 Alumnium automatically retries verification upon an assertion error if the page content is still loading. This is usually sufficient to handle common scenarios like checking for an element that is not yet displayed on the page
 

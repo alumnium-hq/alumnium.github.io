@@ -9,7 +9,7 @@ Let's see how we can write a simple test that would open Google, search for "Sel
 Alumnium can be used with any test runner you like. For the purpose of simplicity, this guide uses a built-in `unittest` module.
 :::
 
-### Setup Selenium
+## Setup Selenium
 
 Start by creating a Python script file for your tests and instantiating a WebDriver instance:
 
@@ -38,7 +38,7 @@ Ran 1 test in 3.809s
 OK
 ```
 
-### Setup Alumnium
+## Setup Alumnium
 
 Now let's add the code that would instantiate Alumnium using the WebDriver object:
 
@@ -72,7 +72,7 @@ OK
 If you are getting errors about missing API keys, make sure you [configured][1] Alumnium and try again!
 ::::
 
-### Add Actions
+## Add Actions
 
 Now let's add some actions that Alumnium should **do** on the page. Our test needs to search for Selenium, so let's use this exact command:
 
@@ -104,7 +104,7 @@ Ran 1 test in 4.133s
 OK
 ```
 
-### Add Verifications
+## Add Verifications
 
 The next step is to add some verifications that the Alumnium should **check** on the page. We are going to add 2 of them, one that checks that the page title contains the search keyword and one to see if the Selenium browser automation tool website is present in the results.
 

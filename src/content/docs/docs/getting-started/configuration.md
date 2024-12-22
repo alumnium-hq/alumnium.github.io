@@ -18,7 +18,7 @@ These models were chosen because they provide the best balance between intellige
 Google provides [free-of-charge plan][7] in many regions, which is convenient for experimenting with Alumnium.
 :::
 
-### Anthropic
+## Anthropic
 
 To use Anthropic as an AI provider in Alumnium:
 
@@ -30,7 +30,7 @@ export ALUMNIUM_MODEL="anthropic"
 export ANTHROPIC_API_KEY="sk-ant-..."
 ```
 
-### Google
+## Google
 
 To use Google AI Studio as an AI provider in Alumnium:
 
@@ -48,7 +48,7 @@ If you are on a [free plan][7] and encounter 429 errors, configure Alumnium to d
 export ALUMNIUM_RPM_LIMIT="15"
 ```
 
-### OpenAI
+## OpenAI
 
 To use OpenAI as an AI provider in Alumnium:
 
@@ -60,7 +60,7 @@ export ALUMNIUM_MODEL="openai"
 export OPENAI_API_KEY="sk-proj-..."
 ```
 
-### Meta
+## Meta
 
 :::caution
 Llama support is experimental and doesn't work with vision checks. Its performance also highly depends on how you run it. The current implementation works via Amazon Bedrock, but we're looking forward to extending it with Ollama, llama.cpp, etc.

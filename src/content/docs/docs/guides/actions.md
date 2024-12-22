@@ -1,5 +1,5 @@
 ---
-title: Do Actions
+title: Doing Actions
 description: How to tell Alumnium to perform actions
 ---
 
@@ -63,3 +63,7 @@ al.do("delete the 'buy milk' task")
 ```
 
 ![A screen recording of Alumnium hovering and deleting task](../../../../assets/delete-task.gif)
+
+### Flakiness
+
+Alumnium automatically retries actions when errors occur during their execution. This is usually sufficient to handle common scenarios like changes to page content during interaction or issues caused by an overzealous LLM.

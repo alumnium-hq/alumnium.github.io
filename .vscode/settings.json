@@ -1,7 +1,9 @@
 {
+  "cSpell.flagWords": ["Aluminium", "aluminium"],
   "cSpell.words": ["Alumnium", "alumnium"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[astro]": {
-    "editor.defaultFormatter": "astro-build.astro-vscode"
+    "editor.defaultFormatter": "astro-build.astro-vscode",
+    "editor.formatOnSave": true
   }
 }

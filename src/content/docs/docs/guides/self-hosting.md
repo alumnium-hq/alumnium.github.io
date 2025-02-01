@@ -1,6 +1,6 @@
 ---
 title: Self-hosting LLMs
-description: How to use self-hosted LLMs with Alumnium
+description: Learn how to use self-hosted LLMs with Alumnium for AI-powered test automation.
 ---
 
 Using third-party AI providers such as Anthropic, Google AI Studio, and OpenAI is the easiest way to use Aluminium. However, you might prefer using self-hosted LLMs for security, privacy, or cost reasons.
@@ -41,7 +41,6 @@ export AZURE_OPENAI_API_KEY="..."
 export AZURE_OPENAI_API_VERSION="2024-08-01-preview"
 export AZURE_OPENAI_ENDPOINT="https://my-model.openai.azure.com"
 ```
-
 
 [1]: https://aws.amazon.com/bedrock
 [2]: https://aws.amazon.com/bedrock/claude/

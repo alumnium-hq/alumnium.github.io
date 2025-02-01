@@ -1,6 +1,6 @@
 ---
 title: Checking Verifications
-description: How to tell Alumnium to verify
+description: Learn how Alumnium verifies web pages with AI-powered checks. Ensure test accuracy with concrete verifications and vision support.
 ---
 
 Alumnium can verify statements on the web page when you instruct it to **check** something. It analyzes the current state of the web page, optionally including its screenshot, and decides whether the verification successfully passes or fails.
@@ -39,7 +39,6 @@ al.check("task 'buy milk' is not completed")
 
 ![A screen recording of Alumnium passing when 1 out of 2 tasks is completed](../../../../assets/check-tasks-concrete.gif)
 
-
 ## Vision
 
 :::caution
@@ -77,7 +76,6 @@ Keep in mind, that the screenshot is taken for the visible part of the page.
 ## Flakiness
 
 Alumnium automatically retries verification upon an assertion error if the page content is still loading. This is usually sufficient to handle common scenarios like checking for an element that is not yet displayed on the page
-
 
 [1]: /docs/guides/actions#specific-instructions
 [2]: https://github.com/boto/boto3/issues/4374

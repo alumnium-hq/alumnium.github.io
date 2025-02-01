@@ -1,6 +1,6 @@
 ---
 title: Doing Actions
-description: How to tell Alumnium to perform actions
+description: Learn how Alumnium automates browser interactions with AI. Discover supported actions, best practices, and how to craft test instructions.
 ---
 
 Alumnium is capable of interacting with the web page when you instruct it to **do** something. It analyzes what actions and in which order need to be taken based on the current state of the web page.

@@ -1,6 +1,6 @@
 ---
-title: Writing Test
-description: How to write a test with Alumnium
+title: Writing First Test
+description: Write AI-powered automated tests with Alumnium. Learn how to integrate Selenium, configure AI models, and run reliable browser tests.
 ---
 
 Let's see how we can write a simple test that would open Google, search for "Selenium", ensure that search results are loaded, and mention the Selenium browser automation tool.
@@ -231,8 +231,5 @@ OK
 ```
 
 Congratulations, we have completed our first test!
-
-
-
 
 [1]: /docs/getting-started/configuration

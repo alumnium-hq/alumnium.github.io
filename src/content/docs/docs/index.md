@@ -1,6 +1,6 @@
 ---
 title: Alumnium
-description: Learn more about Alumnium
+description: Alumnium enhances test automation with AI, simplifying browser interactions, reducing test updates, and integrating seamlessly with existing frameworks.
 ---
 
 ![An illustration of Alumnium robot](../../../assets/index.jpg)

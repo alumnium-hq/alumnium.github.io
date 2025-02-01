@@ -1,16 +1,16 @@
 ---
 title: Configuration
-description: How to configure Alumnium
+description: Configure Alumnium with AI providers like OpenAI, Anthropic, Google, and Meta. Learn how to set up API keys and environment variables for test automation.
 ---
 
 Alumnium needs access to an AI model to work. The following models are supported:
 
-| Provider                 | Model            |
-| ------------------------ | ---------------- |
-| [Anthropic][1]           | Claude 3 Haiku   |
-| [Google][2]              | Gemini 1.5 Flash |
-| [OpenAI][3] _(default)_  | GPT-4o Mini      |
-| [Meta][8]                | Llama 3.2 90B    |
+| Provider                | Model            |
+| ----------------------- | ---------------- |
+| [Anthropic][1]          | Claude 3 Haiku   |
+| [Google][2]             | Gemini 1.5 Flash |
+| [OpenAI][3] _(default)_ | GPT-4o Mini      |
+| [Meta][8]               | Llama 3.2 90B    |
 
 These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
 
@@ -79,9 +79,7 @@ export AWS_ACCESS_KEY="..."
 export AWS_SECRET_KEY="..."
 ```
 
-
 Read next to learn how to write tests!
-
 
 [1]: https://www.anthropic.com
 [2]: https://aistudio.google.com

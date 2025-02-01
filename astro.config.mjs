@@ -11,6 +11,9 @@ export default defineConfig({
   image: {
     service: sharpImageService({ limitInputPixels: false }),
   },
+  build: {
+    format: "preserve",
+  },
   trailingSlash: "never",
   integrations: [
     starlight({

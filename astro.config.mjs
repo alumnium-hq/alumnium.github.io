@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, sharpImageService } from "astro/config";
 import starlight from "@astrojs/starlight";
+import sitemap from "@astrojs/sitemap";
 
 import tailwind from "@astrojs/tailwind";
 
@@ -95,5 +96,6 @@ export default defineConfig({
       customCss: ["./src/tailwind.css"],
     }),
     tailwind({ applyBaseStyles: false }),
+    sitemap({}),
   ],
 });

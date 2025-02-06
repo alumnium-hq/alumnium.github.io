@@ -51,6 +51,13 @@ export default defineConfig({
             href: "/apple-touch-icon.png",
           },
         },
+        {
+          tag: "script",
+          attrs: {
+            src: "https://scripts.simpleanalyticscdn.com/latest.js",
+            async: true,
+          },
+        },
       ],
       sidebar: [
         {

@@ -1,5 +1,5 @@
 {
-  "cSpell.flagWords": ["Aluminium", "aluminium"],
+  "cSpell.flagWords": ["Aluminium", "aluminium", "Aluminum", "aluminum"],
   "cSpell.words": ["Alumnium", "alumnium"],
   "editor.tabSize": 2,
   "editor.defaultFormatter": "esbenp.prettier-vscode",

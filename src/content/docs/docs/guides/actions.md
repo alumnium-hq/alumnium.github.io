@@ -20,8 +20,9 @@ The following actions are currently supported:
 1. Click an element.
 2. Drag one element onto another.
 3. Hover over an element.
-4. Select an option in an element.
-5. Type text into an element and press the keyboard keys.
+4. Press the keyboard keys.
+5. Select an option in an element.
+6. Type text into an element.
 
 Tailoring instructions for Alumnium takes some time and experimentation and you can achieve the best results by following the guidelines listed below.
 

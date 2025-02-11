@@ -3,7 +3,7 @@ title: Alumnium
 description: Alumnium paves the way towards AI-powered test automation. Write human-readable test instructions and let Alumnium translate them into executable commands.
 template: splash
 hero:
-  tagline: Alumnium bridges the gap between human and automated testing by using AI to translate your test instructions into executable commands.
+  tagline: Bridge the gap between human and automated testing! Translate your test instructions into executable commands using AI.
   image:
     file: ../../assets/logo.svg
     alt: Alumnium logo
@@ -36,19 +36,22 @@ import GetNotified from "../../components/GetNotified.astro";
 ## How it works
 
 <Card title="Write Human-Readable Instructions" icon="pencil">
-  Write your test case instructions in plain language with test framework you like. Alumnium provides two types of commands: `do` and `check`. Use `do` to describe the steps to <b>perform</b>, and use `check` to verify the <b>results</b>.
+Write your test case instructions in plain language with test framework you like. Alumnium provides simple commands:
+- Use `do` to describe the steps to <b>perform</b>.
+- Use `check` to verify the <b>results</b>.
+- Use `get` to <b>extract</b> data from the page.
 
 ```python title="todo_test.py"
 al.do("create task 'buy milk'")
-al.do("mark task 'buy milk' as completed")
-al.check("task 'buy milk' is completed")
+al.check("task 'buy milk' is pending")
+assert al.get("number of pending tasks") == 1
 ```
 
   <LinkButton href="/docs/getting-started/writing-first-test" variant="secondary">Write your first test</LinkButton>
 </Card>
 
 <Card title="AI-Powered Test Execution" icon="translate">
-  Aluminum's AI interprets your instructions to generate Selenium code, which it then uses to execute browser interactions. This process utilizes the web page's accessibility tree and, if needed, a screenshot. Aluminum works with popular AI providers like Anthropic, Google Gemini, OpenAI, and Meta Llama.
+  Aluminum's AI interprets your instructions to generate browser interactions and execute them. This process utilizes the web page's accessibility tree and, if needed, a screenshot. Aluminum works with popular AI providers like Anthropic, Google Gemini, OpenAI, and Meta Llama.
 
 {" "}
 

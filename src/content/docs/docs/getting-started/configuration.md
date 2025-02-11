@@ -8,14 +8,14 @@ Alumnium needs access to an AI model to work. The following models are supported
 | Provider                | Model            |
 | ----------------------- | ---------------- |
 | [Anthropic][1]          | Claude 3 Haiku   |
-| [Google][2]             | Gemini 1.5 Flash |
+| [Google][2]             | Gemini 2.0 Flash |
 | [OpenAI][3] _(default)_ | GPT-4o Mini      |
 | [Meta][8]               | Llama 3.2 90B    |
 
 These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
 
 :::tip[Trying out?]
-Google provides [free-of-charge plan][7] in many regions, which is convenient for experimenting with Alumnium.
+Google provides [free-of-charge plan][7] in many regions, which is convenient for experimenting. Alumnium automatically retries the requests when hitting rate limits on the free plans.
 :::
 
 ## Anthropic
@@ -40,12 +40,6 @@ To use Google AI Studio as an AI provider in Alumnium:
 ```bash
 export ALUMNIUM_MODEL="google"
 export GOOGLE_API_KEY="..."
-```
-
-If you are on a [free plan][7] and encounter 429 errors, configure Alumnium to delay its requests to stay within the usage limits. Note that this will significantly increase the duration of your tests!
-
-```bash
-export ALUMNIUM_RPM_LIMIT="15"
 ```
 
 ## OpenAI

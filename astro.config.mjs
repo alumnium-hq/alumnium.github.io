@@ -93,6 +93,10 @@ export default defineConfig({
               slug: "docs/guides/verifications",
             },
             {
+              label: "Getting Data",
+              slug: "docs/guides/retrievals",
+            },
+            {
               label: "Self-hosting LLMs",
               slug: "docs/guides/self-hosting",
             },

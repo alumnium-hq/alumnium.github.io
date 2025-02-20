@@ -8,10 +8,10 @@ Alumnium is capable of interacting with the web page when you instruct it to **d
 For example, if you instruct Alumnium to perform a search on a page with a search box:
 
 ```python
-al.do("search for Selenium")
+al.do("search for 'Mercury element'")
 ```
 
-Alumnium would likely determine that it needs to type "Selenium" into the search box and either press the "Enter" key or click a "Search" button.
+Alumnium would likely determine that it needs to type "Mercury element" into the search box and either press the "Enter" key or click a "Search" button.
 
 ## Supported Actions
 
@@ -20,8 +20,8 @@ The following actions are currently supported:
 1. Click an element.
 2. Drag one element onto another.
 3. Hover over an element.
-4. Press the keyboard keys.
-5. Select an option in an element.
+4. Press the keyboard keys (Enter, Escape, etc).
+5. Select an option in a dropdown element.
 6. Type text into an element.
 
 Tailoring instructions for Alumnium takes some time and experimentation and you can achieve the best results by following the guidelines listed below.
@@ -37,20 +37,26 @@ For example, imagine you are writing tests for a To-Do application. You would li
 You might attempt to achieve this by the following instruction:
 
 ```python
-al.do("mark all tasks completed")
+al.do("mark all tasks complete")
 ```
 
 However, by doing so you permit Alumnium to *mark each task as completed using individual checkboxes near each task*.
 
-![A screen recording of Alumnium mark each task completed one by one](../../../../assets/mark-tasks-one-by-one.gif)
+<video class="rounded-xl" alt="A screen recording of Alumnium mark each task completed one by one" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
+  <source src="../../../src/assets/videos/act-specific-1.mp4" type="video/mp4" />
+  <source src="../../../src/assets/videos/act-specific-1.webm" type="video/webm" />
+</video>
 
 There is nothing wrong with this approach because the goal is achieved! Still, you might want to be more concrete and tell *how* exactly you want all tasks to be completed:
 
 ```python
-al.do("mark all tasks completed using 'Toggle All' button")
+al.do("mark all tasks complete using 'Toggle All' button")
 ```
 
-![A screen recording of Alumnium mark tasks completed at once](../../../../assets/mark-tasks-at-once.gif)
+<video class="rounded-xl" alt="A screen recording of Alumnium mark tasks completed at once" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
+  <source src="../../../src/assets/videos/act-specific-2.mp4" type="video/mp4" />
+  <source src="../../../src/assets/videos/act-specific-2.webm" type="video/webm" />
+</video>
 
 ## One Action At a Time
 
@@ -63,8 +69,46 @@ al.do("hover the 'buy milk' task")
 al.do("delete the 'buy milk' task")
 ```
 
-![A screen recording of Alumnium hovering and deleting task](../../../../assets/delete-task.gif)
+<video class="rounded-xl" alt="A screen recording of Alumnium hovering and deleting task" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
+  <source src="../../../src/assets/videos/act-one-by-one.mp4" type="video/mp4" />
+  <source src="../../../src/assets/videos/act-one-by-one.webm" type="video/webm" />
+</video>
+
+## Teach With Examples
+
+Often, Alumnium cannot determine the proper sequence of actions it needs to perform to achieve a goal. For example, as mentioned above, Alumnium  cannot understand what to do when it is told to delete a task.
+
+<video class="rounded-xl" alt="A screen recording of Alumnium unable to delete task without being taught" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
+  <source src="../../../src/assets/videos/learn-1.mp4" type="video/mp4" />
+  <source src="../../../src/assets/videos/learn-1.webm" type="video/webm" />
+</video>
+
+You can either provide the exact steps manually each time (see the section above) or teach it once by providing an example.
+
+```python
+al.learn(
+  goal='delete "Test" task',
+  actions=[
+    'hover "Test" task',
+    'click "x" button near "Test" task',
+  ]
+)
+```
+
+From now on, Alumnium knows what to do when told to delete a task.
+
+<video class="rounded-xl" alt="A screen recording of Alumnium deleting task after being taught" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
+  <source src="../../../src/assets/videos/learn-2.mp4" type="video/mp4" />
+  <source src="../../../src/assets/videos/learn-2.webm" type="video/webm" />
+</video>
 
 ## Flakiness
 
-Alumnium automatically retries actions when errors occur during their execution. This is usually sufficient to handle common scenarios like changes to page content during interaction or issues caused by an overzealous LLM.
+Alumnium automatically waits for the following conditions before attempting to perform any action:
+
+1. The HTML document is loaded and ready.
+2. Resources on the page are loaded.
+3. Document mutations are finished.
+4. XHR/fetch requests are finished.
+
+In addition, Alumnium automatically retries actions when errors occur during their execution. This is usually sufficient to handle common scenarios such as changes to page content during interaction or issues caused by an overzealous LLM.

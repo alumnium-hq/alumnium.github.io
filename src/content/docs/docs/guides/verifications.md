@@ -29,8 +29,8 @@ al.check("task is not completed")
 ```
 
 <video class="rounded-xl" alt="A screen recording of Alumnium false positive when 1 out of 2 tasks is completed" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="/public/videos/check-specific-1.mp4" type="video/mp4" />
-  <source src="/public/videos/check-specific-1.webm" type="video/webm" />
+  <source src="/videos/check-specific-1.mp4" type="video/mp4" />
+  <source src="/videos/check-specific-1.webm" type="video/webm" />
 </video>
 
 To avoid false positives in the tests, write more concrete verifications:
@@ -41,8 +41,8 @@ al.check("task 'buy bread' is not completed")
 ```
 
 <video class="rounded-xl" alt="A screen recording of Alumnium passing when 1 out of 2 tasks is completed" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="/public/videos/check-specific-2.mp4" type="video/mp4" />
-  <source src="/public/videos/check-specific-2.webm" type="video/webm" />
+  <source src="/videos/check-specific-2.mp4" type="video/mp4" />
+  <source src="/videos/check-specific-2.webm" type="video/webm" />
 </video>
 
 ## Vision
@@ -80,8 +80,8 @@ al.check("'buy milk' title font style is strikethrough", vision=True)
 ```
 
 <video class="rounded-xl" alt="A screen recording of Alumnium failing to determe font style of completed task" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="/public/videos/check-vision.mp4" type="video/mp4" />
-  <source src="/public/videos/check-vision.webm" type="video/webm" />
+  <source src="/videos/check-vision.mp4" type="video/mp4" />
+  <source src="/videos/check-vision.webm" type="video/webm" />
 </video>
 
 ## Flakiness

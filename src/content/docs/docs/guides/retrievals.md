@@ -14,8 +14,8 @@ al.get("number of pending tasks")
 Alumnium checks how many tasks are present on the page, which of them are pending, and then provides a count.
 
 <video class="rounded-xl" alt="A screen recording of Alumnium getting number of pending tasks" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="/public/videos/get-int.mp4" type="video/mp4" />
-  <source src="/public/videos/get-int.webm" type="video/webm" />
+  <source src="/videos/get-int.mp4" type="video/mp4" />
+  <source src="/videos/get-int.webm" type="video/webm" />
 </video>
 
 You can then use the number to perform assertions within your test.
@@ -37,8 +37,8 @@ assert al.get("titles of pending tasks") == ["buy honey", "buy water"]
 ```
 
 <video class="rounded-xl" alt="A screen recording of Alumnium getting number of pending tasks" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="/public/videos/get-list.mp4" type="video/mp4" />
-  <source src="/public/videos/get-list.webm" type="video/webm" />
+  <source src="/videos/get-list.mp4" type="video/mp4" />
+  <source src="/videos/get-list.webm" type="video/webm" />
 </video>
 
 ## Typecasting
@@ -48,8 +48,8 @@ Alumnium attempts to cast the data to an appropriate type. The currently support
 If the data is not present on the page, Alumnium returns `None`:
 
 <video class="rounded-xl" alt="A screen recording of Alumnium returning null for data not present on the page" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="/public/videos/get-none.mp4" type="video/mp4" />
-  <source src="/public/videos/get-none.webm" type="video/webm" />
+  <source src="/videos/get-none.mp4" type="video/mp4" />
+  <source src="/videos/get-none.webm" type="video/webm" />
 </video>
 
 ## Vision

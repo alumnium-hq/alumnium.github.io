@@ -43,8 +43,8 @@ al.do("mark all tasks complete")
 However, by doing so you permit Alumnium to *mark each task as completed using individual checkboxes near each task*.
 
 <video class="rounded-xl" alt="A screen recording of Alumnium mark each task completed one by one" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="../../../src/assets/videos/act-specific-1.mp4" type="video/mp4" />
-  <source src="../../../src/assets/videos/act-specific-1.webm" type="video/webm" />
+  <source src="/public/videos/act-specific-1.mp4" type="video/mp4" />
+  <source src="/public/videos/act-specific-1.webm" type="video/webm" />
 </video>
 
 There is nothing wrong with this approach because the goal is achieved! Still, you might want to be more concrete and tell *how* exactly you want all tasks to be completed:
@@ -54,8 +54,8 @@ al.do("mark all tasks complete using 'Toggle All' button")
 ```
 
 <video class="rounded-xl" alt="A screen recording of Alumnium mark tasks completed at once" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="../../../src/assets/videos/act-specific-2.mp4" type="video/mp4" />
-  <source src="../../../src/assets/videos/act-specific-2.webm" type="video/webm" />
+  <source src="/public/videos/act-specific-2.mp4" type="video/mp4" />
+  <source src="/public/videos/act-specific-2.webm" type="video/webm" />
 </video>
 
 ## One Action At a Time
@@ -70,8 +70,8 @@ al.do("delete the 'buy milk' task")
 ```
 
 <video class="rounded-xl" alt="A screen recording of Alumnium hovering and deleting task" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="../../../src/assets/videos/act-one-by-one.mp4" type="video/mp4" />
-  <source src="../../../src/assets/videos/act-one-by-one.webm" type="video/webm" />
+  <source src="/public/videos/act-one-by-one.mp4" type="video/mp4" />
+  <source src="/public/videos/act-one-by-one.webm" type="video/webm" />
 </video>
 
 ## Teach With Examples
@@ -79,8 +79,8 @@ al.do("delete the 'buy milk' task")
 Often, Alumnium cannot determine the proper sequence of actions it needs to perform to achieve a goal. For example, as mentioned above, Alumnium  cannot understand what to do when it is told to delete a task.
 
 <video class="rounded-xl" alt="A screen recording of Alumnium unable to delete task without being taught" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="../../../src/assets/videos/learn-1.mp4" type="video/mp4" />
-  <source src="../../../src/assets/videos/learn-1.webm" type="video/webm" />
+  <source src="/public/videos/learn-1.mp4" type="video/mp4" />
+  <source src="/public/videos/learn-1.webm" type="video/webm" />
 </video>
 
 You can either provide the exact steps manually each time (see the section above) or teach it once by providing an example.
@@ -98,8 +98,8 @@ al.learn(
 From now on, Alumnium knows what to do when told to delete a task.
 
 <video class="rounded-xl" alt="A screen recording of Alumnium deleting task after being taught" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
-  <source src="../../../src/assets/videos/learn-2.mp4" type="video/mp4" />
-  <source src="../../../src/assets/videos/learn-2.webm" type="video/webm" />
+  <source src="/public/videos/learn-2.mp4" type="video/mp4" />
+  <source src="/public/videos/learn-2.webm" type="video/webm" />
 </video>
 
 ## Flakiness

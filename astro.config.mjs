@@ -14,7 +14,7 @@ export default defineConfig({
   build: {
     format: "preserve",
   },
-  trailingSlash: "never",
+  trailingSlash: "ignore",
   integrations: [
     starlight({
       logo: {

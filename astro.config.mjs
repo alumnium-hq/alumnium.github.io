@@ -12,7 +12,7 @@ export default defineConfig({
     service: sharpImageService({ limitInputPixels: false }),
   },
   build: {
-    format: "preserve",
+    format: "directory",
   },
   trailingSlash: "ignore",
   integrations: [

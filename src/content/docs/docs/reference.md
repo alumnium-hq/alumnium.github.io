@@ -52,6 +52,7 @@ Select AI provider and model to use.
 | azure_openai  | gpt-4o-mini                            | Self-hosted Azure OpenAI API. Recommended model version is _2024-07-18_. |
 | aws_anthropic | anthropic.claude-3-haiku-20240307-v1:0 | Serverless Amazon Bedrock API.                                           |
 | aws_meta      | us.meta.llama3-2-90b-instruct-v1:0     | Serverless Amazon Bedrock API.                                           |
+| deepseek      | deepseek-chat                          | DeepSeek Platform        .                                               |
 | google        | gemini-2.0-flash-001                   | Google AI Studio API.                                                    |
 | openai        | gpt-4o-mini-2024-07-18                 | OpenAI API.                                                              |
 

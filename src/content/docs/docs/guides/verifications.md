@@ -52,7 +52,7 @@ Vision verifications are significantly more expensive and slower, so resort to t
 :::
 
 :::note
-Meta Llama 3.2 [does not support vision verifications][2] yet.
+Meta Llama 3.2 and DeepSeek V3 [does not support vision verifications][2] yet.
 :::
 
 :::note

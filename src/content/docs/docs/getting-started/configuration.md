@@ -10,6 +10,7 @@ Alumnium needs access to an AI model to work. The following models are supported
 | [Anthropic][1]          | Claude 3 Haiku   |
 | [Google][2]             | Gemini 2.0 Flash |
 | [OpenAI][3] _(default)_ | GPT-4o Mini      |
+| [DeepSeek][12]          | DeepSeek V3      |
 | [Meta][8]               | Llama 3.2 90B    |
 
 These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
@@ -54,6 +55,22 @@ export ALUMNIUM_MODEL="openai"
 export OPENAI_API_KEY="sk-proj-..."
 ```
 
+## DeepSeek
+
+:::caution
+DeepSeek support is experimental and doesn't work with vision checks. The current implementation works via the DeepSeek Platform, but we're looking forward to extending it with Ollama, llama.cpp, etc.
+:::
+
+To use DeepSeek as an AI provider in Alumnium:
+
+1. Set up a [DeepSeek Platform][13] account.
+2. Get the [API key][14].
+3. Export the following environment variable before running tests:
+
+```bash
+export ALUMNIUM_MODEL="deepseek"
+```
+
 ## Meta
 
 :::caution
@@ -86,3 +103,6 @@ Read next to learn how to write tests!
 [9]: https://aws.amazon.com/bedrock/
 [10]: https://aws.amazon.com/bedrock/llama/
 [11]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+[12]: https://www.deepseek.com
+[13]: https://platform.deepseek.com
+[14]: https://platform.deepseek.com/api_keys

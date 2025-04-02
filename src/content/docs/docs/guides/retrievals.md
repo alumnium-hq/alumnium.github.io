@@ -21,7 +21,7 @@ Alumnium checks how many tasks are present on the page, which of them are pendin
 You can then use the number to perform assertions within your test.
 
 ```python
-assert al.get("number of pending tasks") == 4
+assert al.get("number of pending tasks") == 2
 ```
 
 ## Specific Data

@@ -24,7 +24,7 @@ export default defineConfig({
       title: "Alumnium",
       social: {
         github: "https://github.com/alumnium-hq/alumnium",
-        discord: "https://discord.gg/VDnPg6Ta",
+        discord: "https://discord.gg/45hYBf3U",
         slack: "https://seleniumhq.slack.com/channels/alumnium",
       },
       favicon: "./public/favicon.svg",

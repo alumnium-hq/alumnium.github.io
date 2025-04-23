@@ -397,7 +397,7 @@ Let's add a failing verification first:
         class TestGoogleSearch(unittest.TestCase):
             def setUp(self):
                 driver = Chrome()
-                page.goto("https://duckduckgo.com")
+                driver.get("https://duckduckgo.com")
                 self.al = Alumni(driver)
 
             def test_search(self):

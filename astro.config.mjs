@@ -109,6 +109,10 @@ export default defineConfig({
         },
       ],
       customCss: ["./src/tailwind.css"],
+      components: {
+        // Override the default `Header` component.
+        Header: './src/components/overrides/Header.astro',
+      },
     }),
     tailwind({ applyBaseStyles: false }),
     sitemap({}),

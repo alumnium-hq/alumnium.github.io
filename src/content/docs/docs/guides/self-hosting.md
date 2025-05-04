@@ -9,6 +9,7 @@ Alumnium provides several options for using self-hosted LLMs:
 
 1. Serverless models on [Amazon Bedrock][1].
 2. OpenAI service on [Azure][4].
+3. Local model inference with [Ollama][6].
 
 ## Amazon Bedrock
 
@@ -42,8 +43,20 @@ export AZURE_OPENAI_API_VERSION="2024-08-01-preview"
 export AZURE_OPENAI_ENDPOINT="https://my-model.openai.azure.com"
 ```
 
+## Ollama
+
+Ollama provides a fully local model inference. You can use it to power test execution on your own machine or deploy it to a server and access via API.
+
+Please follow the respective documentation on how to deploy Ollama to the cloud. Once deployed, download necessary model and configure Alumnium to use it:
+
+```bash
+ollama pull mistral-small3.1:24b
+export ALUMNIUM_MODEL="ollama"
+```
+
 [1]: https://aws.amazon.com/bedrock
 [2]: https://aws.amazon.com/bedrock/claude/
 [3]: https://aws.amazon.com/bedrock/llama/
 [4]: https://azure.microsoft.com/en-us/products/ai-services/openai-service
 [5]: https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions
+[6]: https://ollama.com

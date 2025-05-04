@@ -1,17 +1,18 @@
 ---
 title: Configuration
-description: Configure Alumnium with AI providers like OpenAI, Anthropic, Google, and Meta. Learn how to set up API keys and environment variables for test automation.
+description: Configure Alumnium with AI providers like OpenAI, Anthropic, Google, Meta, DeepSeek and Ollama. Learn how to set up API keys and environment variables for test automation.
 ---
 
 Alumnium needs access to an AI model to work. The following models are supported:
 
-| Provider                | Model            |
-| ----------------------- | ---------------- |
-| [Anthropic][1]          | Claude 3 Haiku   |
-| [Google][2]             | Gemini 2.0 Flash |
-| [OpenAI][3] _(default)_ | GPT-4o Mini      |
-| [DeepSeek][12]          | DeepSeek V3      |
-| [Meta][8]               | Llama 3.2 90B    |
+| Provider                | Model                 |
+| ----------------------- | --------------------- |
+| [Anthropic][1]          | Claude 3 Haiku        |
+| [Google][2]             | Gemini 2.0 Flash      |
+| [OpenAI][3] _(default)_ | GPT-4o Mini           |
+| [DeepSeek][12]          | DeepSeek V3           |
+| [Meta][8]               | Llama 3.2 90B         |
+| [Ollama][15]            | Mistral Small 3.1 24B |
 
 These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
 
@@ -90,6 +91,27 @@ export AWS_ACCESS_KEY="..."
 export AWS_SECRET_KEY="..."
 ```
 
+## Ollama
+
+:::caution
+Ollama support is experimental and performance depends on your hardware.
+:::
+
+To use Ollama for a fully local model inference:
+
+1. Download and install [Ollama][15].
+2. Download Mistrall Small 3.1 24B model:
+
+```bash
+ollama pull mistral-small3.1:24b
+```
+
+3. Export the following environment variable before running tests:
+
+```bash
+export ALUMNIUM_MODEL="ollama"
+```
+
 Read next to learn how to write tests!
 
 [1]: https://www.anthropic.com
@@ -106,3 +128,4 @@ Read next to learn how to write tests!
 [12]: https://www.deepseek.com
 [13]: https://platform.deepseek.com
 [14]: https://platform.deepseek.com/api_keys
+[15]: https://ollama.com

@@ -1,23 +1,25 @@
 ---
 import Logo from "./Logo.astro";
-import anthropic from "../assets/anthropic.svg";
-import openaiLockup from "../assets/openai-lockup.svg";
+import claude from "../assets/claude.svg";
+import deepseek from "../assets/deepseek.svg";
 import gemini from "../assets/gemini.svg";
 import meta from "../assets/meta.svg";
+import mistral from "../assets/mistral.svg";
+import openai from "../assets/openai.svg";
 import playwright from "../assets/playwright.svg";
 import selenium from "../assets/selenium.svg";
-import deepseek from "../assets/deepseek.svg";
 ---
 
 <div class="bg-primary-light dark:bg-primary-dark py-8 not-content">
   <div class="mx-auto max-w-7xl">
-    <h2 class="text-center text-lg/8 font-semibold text-text-light dark:text-text-dark">Integrates with</h2>
+    <h2 class="text-center text-lg/16 font-semibold text-text-light dark:text-text-dark">Integrates with</h2>
     <div class="mx-auto mt-6 lg:mt-10 max-w-none gap-x-10 gap-y-10 flex justify-center items-center flex-wrap">
-      <Logo src={anthropic.src} alt="Anthropic" className="h-5" />
-      <Logo src={gemini.src} alt="Google Gemini" className="pb-4" />
-      <Logo src={openaiLockup.src} alt="OpenAI" className="h-10" />
-      <Logo src={meta.src} alt="Meta Llama" className="h-6" />
-      <Logo src={deepseek.src} alt="DeepSeek" className="h-10" />
+      <Logo src={claude.src} alt="Anthropic Claude" className="h-20" />
+      <Logo src={gemini.src} alt="Google Gemini" className="h-20" />
+      <Logo src={openai.src} alt="OpenAI" className="h-20" />
+      <Logo src={meta.src} alt="Meta Llama" className="h-20" />
+      <Logo src={deepseek.src} alt="DeepSeek" className="h-20" />
+      <Logo src={mistral.src} alt="Mistral" className="h-20" />
     </div>
     <div class="pt-5 mx-auto mt-6 lg:mt-5 max-w-none gap-x-10 gap-y-10 flex justify-center items-center flex-wrap">
       <Logo src={selenium.src} alt="Selenium" />

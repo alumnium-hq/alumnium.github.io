@@ -2,4 +2,9 @@
 const { src, alt, className } = Astro.props;
 ---
 
-<img class:list={["max-h-14 dark:brightness-0 dark:invert dark:opacity-50", className]} src={src} alt={alt} />
+<img
+  class:list={["max-h-14 dark:brightness-0 dark:invert dark:opacity-50", className]}
+  src={src}
+  alt={alt}
+  title={alt}
+/>

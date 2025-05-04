@@ -3,8 +3,6 @@ import { defineConfig, sharpImageService } from "astro/config";
 import starlight from "@astrojs/starlight";
 import sitemap from "@astrojs/sitemap";
 
-import tailwind from "@astrojs/tailwind";
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://alumnium.ai",
@@ -22,11 +20,11 @@ export default defineConfig({
         alt: "Alumnium",
       },
       title: "Alumnium",
-      social: {
-        github: "https://github.com/alumnium-hq/alumnium",
-        discord: "https://discord.gg/mP29tTtKHg",
-        slack: "https://seleniumhq.slack.com/channels/alumnium",
-      },
+      social: [
+        { icon: "github", label: "GitHub", href: "https://github.com/alumnium-hq/alumnium" },
+        { icon: "discord", label: "Discord", href: "https://discord.gg/mP29tTtKHg" },
+        { icon: "slack", label: "Slack", href: "https://seleniumhq.slack.com/channels/alumnium" },
+      ],
       favicon: "./public/favicon.svg",
       head: [
         {
@@ -111,10 +109,9 @@ export default defineConfig({
       customCss: ["./src/tailwind.css"],
       components: {
         // Override the default `Header` component.
-        Header: './src/components/overrides/Header.astro',
+        Header: "./src/components/overrides/Header.astro",
       },
     }),
-    tailwind({ applyBaseStyles: false }),
     sitemap({}),
   ],
 });

@@ -1,3 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* src/tailwind.css */
+@import "@astrojs/starlight-tailwind";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  /* Custom primary color */
+  --sl-color-primary-light: #ffffff;
+  --sl-color-primary-dark: #111827;
+  /* Custom text color */
+  --sl-color-text-light: #111827;
+  --sl-color-text-dark: #ffffff;
+}
+
+/*
+Add additional Tailwind styles to this file:
+https://tailwindcss.com/docs/adding-custom-styles#using-custom-css
+*/

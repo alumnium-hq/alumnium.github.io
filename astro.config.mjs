@@ -107,7 +107,7 @@ export default defineConfig({
           slug: "docs/reference",
         },
       ],
-      customCss: ["./src/tailwind.css"],
+      customCss: ["./src/styles/global.css"],
       components: {
         // Override the default `Header` component.
         Header: "./src/components/overrides/Header.astro",

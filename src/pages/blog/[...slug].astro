@@ -17,11 +17,12 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 Astro.locals.starlightRoute = routeConfig({
   title: post.data.title,
   slug: post.id.slice(11),
   description: post.data.description,
+  toc: headings,
 });
 ---
 

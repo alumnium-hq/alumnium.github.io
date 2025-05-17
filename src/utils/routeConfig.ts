@@ -1,5 +1,7 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import { getHead } from "../../node_modules/@astrojs/starlight/utils/head.ts";
+import { generateToC } from "../../node_modules/@astrojs/starlight/utils/generateToC.ts";
+import type { MarkdownHeading } from "astro";
 
 const siteTitle = "Alumnium";
 
@@ -9,6 +11,7 @@ export function routeConfig(data: {
   slug: string;
   description?: string;
   siteTitleHref?: string;
+  toc?: MarkdownHeading[];
 }): StarlightRouteData {
   const entry = {
     id: data.slug,
@@ -36,7 +39,18 @@ export function routeConfig(data: {
     sidebar: [],
     hasSidebar: false,
     siteTitleHref: data.siteTitleHref || "/",
-    toc: undefined,
+    toc: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 3,
+      items: generateToC(
+        data.toc || [],
+        {
+          minHeadingLevel: 2,
+          maxHeadingLevel: 3,
+          title: data.title,
+        }
+      ),
+    },
     lastUpdated: undefined,
     editUrl: undefined,
     slug: data.slug,

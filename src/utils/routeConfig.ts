@@ -47,7 +47,7 @@ export function routeConfig(data: {
         {
           minHeadingLevel: 2,
           maxHeadingLevel: 3,
-          title: data.title,
+          title: "Overview",
         }
       ),
     },

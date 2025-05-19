@@ -34,7 +34,15 @@ const className = [
     ]}
   >
     <div class="gap-3 flex flex-col items-center max-w-screen-lg">
-      {mode === "post" ? <h1 class:list={className}>{title}</h1> : <h3 class:list={className}>{title}</h3>}
+      {
+        mode === "post" ? (
+          <h1 class:list={className} id="_top">
+            {title}
+          </h1>
+        ) : (
+          <h3 class:list={className}>{title}</h3>
+        )
+      }
 
       <div class="text-gray-300">
         <Author prefix="Published by" author={author} />

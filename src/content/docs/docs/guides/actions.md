@@ -3,7 +3,7 @@ title: Doing Actions
 description: Learn how Alumnium automates browser interactions with AI. Discover supported actions, best practices, and how to craft test instructions.
 ---
 
-Alumnium is capable of interacting with the web page when you instruct it to **do** something. It analyzes what actions and in which order need to be taken based on the current state of the web page.
+Alumnium is capable of interacting with the application when you instruct it to **do** something. It analyzes what actions and in which order need to be taken based on the current state of the mobile or web application.
 
 For example, if you instruct Alumnium to perform a search on a page with a search box:
 
@@ -19,10 +19,11 @@ The following actions are currently supported:
 
 1. Click an element.
 2. Drag one element onto another.
-3. Hover over an element.
+3. Hover over an element (only web applications).
 4. Press the keyboard keys (Enter, Escape, etc).
 5. Select an option in a dropdown element.
-6. Type text into an element.
+6. Swipe an element (only mobile applications).
+7. Type text into an element.
 
 Tailoring instructions for Alumnium takes some time and experimentation and you can achieve the best results by following the guidelines listed below.
 
@@ -60,7 +61,7 @@ al.do("mark all tasks complete using 'Toggle All' button")
 
 ## One Action At a Time
 
-Alumnium does not (yet) support performing actions that span over multiple page changes, so you need to tailor instructions based on the *current state of the web page*.
+Alumnium does not (yet) support performing actions that span over multiple page changes, so you need to tailor instructions based on the *current state of the application*.
 
 For example, the To-Do application you are testing provides a way to delete a task by clicking the **x** button near the task. However, this button is visible only when the user hovers mouse over the task. Because the state of the page changes after hovering, you need to instruct Alumnium twice:
 

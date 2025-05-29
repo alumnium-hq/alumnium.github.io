@@ -5,7 +5,7 @@ description: Write AI-powered automated tests with Alumnium. Learn how to integr
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-Let's see how we can write a simple test that would open Google, search for a Mercury element, ensure that search results are loaded, include the Wikipedia article about the element, and check that its symbol is presented correctly on the page.
+Let's see how we can write a simple test that would open DuckDuckGo, search for a Mercury element, ensure that search results are loaded, include the Wikipedia article about the element, and check that its symbol is presented correctly on the page.
 
 :::note
 Alumnium can be used with any test runner you like. For the purpose of simplicity, this guide uses a built-in `unittest` module.
@@ -18,15 +18,15 @@ Start by creating a Python script file for your tests and instantiating a browse
 <Tabs syncKey="driver">
 
     <TabItem label="Selenium">
-        ```python title="google_test.py"
+        ```python title="search_test.py"
         import unittest
         from selenium.webdriver import Chrome
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 driver = Chrome()
-                driver.get("https://google.com")
+                driver.get("https://duckduckgo.com")
 
             def test_search(self):
                 pass
@@ -34,15 +34,15 @@ Start by creating a Python script file for your tests and instantiating a browse
     </TabItem>
 
     <TabItem label="Playwright">
-        ```python title="google_test.py"
+        ```python title="search_test.py"
         import unittest
         from playwright.sync_api import sync_playwright
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 page = sync_playwright().start().chromium.launch(headless=False).new_page()
-                page.goto("https://google.com")
+                page.goto("https://duckduckgo.com")
 
             def test_search(self):
                 pass
@@ -51,10 +51,10 @@ Start by creating a Python script file for your tests and instantiating a browse
 
 </Tabs>
 
-Now run the test. You should see a Chrome browser window with Google opened.
+Now run the test. You should see a Chrome browser window with DuckDuckGo opened.
 
 ```bash title="Running test..."
-$ python -m unittest google_test.py
+$ python -m unittest search_test.py
 .
 ----------------------------------------------------------------------
 Ran 1 test in 3.809s
@@ -69,16 +69,16 @@ Now let's add the code that would instantiate Alumnium using the browser:
 <Tabs syncKey="driver">
 
     <TabItem label="Selenium">
-        ```python title="google_test.py" ins={2, 10}
+        ```python title="search_test.py" ins={2, 10}
         import unittest
         from alumnium import Alumni
         from selenium.webdriver import Chrome
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 driver = Chrome()
-                driver.get("https://google.com")
+                driver.get("https://duckduckgo.com")
                 self.al = Alumni(driver)
 
             def test_search(self):
@@ -87,16 +87,16 @@ Now let's add the code that would instantiate Alumnium using the browser:
     </TabItem>
 
     <TabItem label="Playwright">
-        ```python title="google_test.py" ins={2, 10}
+        ```python title="search_test.py" ins={2, 10}
         import unittest
         from alumnium import Alumni
         from playwright.sync_api import sync_playwright
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 page = sync_playwright().start().chromium.launch(headless=False).new_page()
-                page.goto("https://google.com")
+                page.goto("https://duckduckgo.com")
                 self.al = Alumni(page)
 
             def test_search(self):
@@ -109,7 +109,7 @@ Now let's add the code that would instantiate Alumnium using the browser:
 The test should still work fine, let's re-run it to make sure:
 
 ```bash title="Running test..."
-$ python -m unittest google_test.py
+$ python -m unittest search_test.py
 .
 ----------------------------------------------------------------------
 Ran 1 test in 3.044s
@@ -128,16 +128,16 @@ Now let's add some actions that Alumnium should **do** on the page. Our test nee
 <Tabs syncKey="driver">
 
     <TabItem label="Selenium">
-        ```python title="google_test.py" del={13} ins={14}
+        ```python title="search_test.py" del={13} ins={14}
         import unittest
         from alumnium import Alumni
         from selenium.webdriver import Chrome
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 driver = Chrome()
-                driver.get("https://google.com")
+                driver.get("https://duckduckgo.com")
                 self.al = Alumni(driver)
 
             def test_search(self):
@@ -147,16 +147,16 @@ Now let's add some actions that Alumnium should **do** on the page. Our test nee
     </TabItem>
 
     <TabItem label="Playwright">
-        ```python title="google_test.py" del={13} ins={14}
+        ```python title="search_test.py" del={13} ins={14}
         import unittest
         from alumnium import Alumni
         from playwright.sync_api import sync_playwright
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 page = sync_playwright().start().chromium.launch(headless=False).new_page()
-                page.goto("https://google.com")
+                page.goto("https://duckduckgo.com")
                 self.al = Alumni(page)
 
             def test_search(self):
@@ -170,7 +170,7 @@ Now let's add some actions that Alumnium should **do** on the page. Our test nee
 Run the test, you should now see "Mercury element" typed in the search box and the page with results loaded.
 
 ```bash title="Running test..."
-$ python -m unittest google_test.py
+$ python -m unittest search_test.py
 .
 ----------------------------------------------------------------------
 Ran 1 test in 4.133s
@@ -187,16 +187,16 @@ Common wisdom says to _never trust a test you haven’t seen fail_. Let's add th
 <Tabs syncKey="driver">
 
     <TabItem label="Selenium">
-        ```python title="google_test.py" ins={14}
+        ```python title="search_test.py" ins={14}
         import unittest
         from alumnium import Alumni
         from selenium.webdriver import Chrome
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 driver = Chrome()
-                driver.get("https://google.com")
+                driver.get("https://duckduckgo.com")
                 self.al = Alumni(driver)
 
             def test_search(self):
@@ -206,16 +206,16 @@ Common wisdom says to _never trust a test you haven’t seen fail_. Let's add th
     </TabItem>
 
     <TabItem label="Playwright">
-        ```python title="google_test.py" ins={14}
+        ```python title="search_test.py" ins={14}
         import unittest
         from alumnium import Alumni
         from playwright.sync_api import sync_playwright
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 page = sync_playwright().start().chromium.launch(headless=False).new_page()
-                page.goto("https://google.com")
+                page.goto("https://duckduckgo.com")
                 self.al = Alumni(page)
 
             def test_search(self):
@@ -229,18 +229,18 @@ Common wisdom says to _never trust a test you haven’t seen fail_. Let's add th
 Now let's run our test:
 
 ```bash title="Running test..." wrap {12}
-$ python -m unittest google_test.py
+$ python -m unittest search_test.py
 F
 ======================================================================
-FAIL: test_search (test.TestGoogleSearch.test_search)
+FAIL: test_search (test.TestSearch.test_search)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/alumnium/google_test.py", line 14, in test_search
+  File "/alumnium/search_test.py", line 14, in test_search
     self.al.check("page title contains Alumnium word")
   File "/alumnium/alumnium/alumni.py", line 90, in check
     assert result.value, result.explanation
            ^^^^^^^^^^^^
-AssertionError: The page title is 'Mercury element - Google Search', which does not contain the word 'Alumnium'.
+AssertionError: The page title is 'Mercury element - DuckDuckGo Search', which does not contain the word 'Alumnium'.
 
 ----------------------------------------------------------------------
 Ran 1 test in 7.599s
@@ -255,16 +255,16 @@ Let's fix the first check and add another one, expecting it to fail again:
 <Tabs syncKey="driver">
 
     <TabItem label="Selenium">
-        ```python title="google_test.py" del={14} ins={15-16}
+        ```python title="search_test.py" del={14} ins={15-16}
         import unittest
         from alumnium import Alumni
         from selenium.webdriver import Chrome
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 driver = Chrome()
-                driver.get("https://google.com")
+                driver.get("https://duckduckgo.com")
                 self.al = Alumni(driver)
 
             def test_search(self):
@@ -276,16 +276,16 @@ Let's fix the first check and add another one, expecting it to fail again:
     </TabItem>
 
     <TabItem label="Playwright">
-        ```python title="google_test.py" del={14} ins={15-16}
+        ```python title="search_test.py" del={14} ins={15-16}
         import unittest
         from alumnium import Alumni
         from playwright.sync_api import sync_playwright
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 page = sync_playwright().start().chromium.launch(headless=False).new_page()
-                page.goto("https://google.com")
+                page.goto("https://duckduckgo.com")
                 self.al = Alumni(page)
 
             def test_search(self):
@@ -301,13 +301,13 @@ Let's fix the first check and add another one, expecting it to fail again:
 Time to re-run the test:
 
 ```bash title="Running test..." wrap {12}
-$ python -m unittest google_test.py
+$ python -m unittest search_test.py
 F
 ======================================================================
-FAIL: test_search (test.TestGoogleSearch.test_search)
+FAIL: test_search (test.TestSearch.test_search)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/alumnium/google_test.py", line 15, in test_search
+  File "/alumnium/search_test.py", line 15, in test_search
     self.al.check("search results do not contain Wikipedia article")
   File "/alumnium/alumnium/alumni.py", line 90, in check
     assert result.value, result.explanation
@@ -325,16 +325,16 @@ Ok, the test failed as we wanted it to, let's fix it:
 <Tabs syncKey="driver">
 
     <TabItem label="Selenium">
-        ```python title="google_test.py" del={15} ins={16}
+        ```python title="search_test.py" del={15} ins={16}
         import unittest
         from alumnium import Alumni
         from selenium.webdriver import Chrome
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 driver = Chrome()
-                driver.get("https://google.com")
+                driver.get("https://duckduckgo.com")
                 self.al = Alumni(driver)
 
             def test_search(self):
@@ -346,16 +346,16 @@ Ok, the test failed as we wanted it to, let's fix it:
     </TabItem>
 
     <TabItem label="Playwright">
-        ```python title="google_test.py" del={15} ins={16}
+        ```python title="search_test.py" del={15} ins={16}
         import unittest
         from alumnium import Alumni
         from playwright.sync_api import sync_playwright
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 page = sync_playwright().start().chromium.launch(headless=False).new_page()
-                page.goto("https://google.com")
+                page.goto("https://duckduckgo.com")
                 self.al = Alumni(page)
 
             def test_search(self):
@@ -371,7 +371,7 @@ Ok, the test failed as we wanted it to, let's fix it:
 Now, re-run to make sure it passes:
 
 ```bash title="Running test"
-$ python -m unittest google_test.py
+$ python -m unittest search_test.py
 .
 ----------------------------------------------------------------------
 Ran 1 test in 14.088s
@@ -388,13 +388,13 @@ Let's add a failing verification first:
 <Tabs syncKey="driver">
 
     <TabItem label="Selenium">
-        ```python title="google_test.py" ins={16,17}
+        ```python title="search_test.py" ins={16,17}
         import unittest
         from alumnium import Alumni
         from selenium.webdriver import Chrome
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 driver = Chrome()
                 driver.get("https://duckduckgo.com")
@@ -410,13 +410,13 @@ Let's add a failing verification first:
     </TabItem>
 
     <TabItem label="Playwright">
-        ```python title="google_test.py" ins={16,17}
+        ```python title="search_test.py" ins={16,17}
         import unittest
         from alumnium import Alumni
         from playwright.sync_api import sync_playwright
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 page = sync_playwright().start().chromium.launch(headless=False).new_page()
                 page.goto("https://duckduckgo.com")
@@ -436,13 +436,13 @@ Let's add a failing verification first:
 Time to re-run the test:
 
 ```bash title="Running test"
-$ python -m unittest google_test.py
+$ python -m unittest search_test.py
 F
 ======================================================================
-FAIL: test_search (test.TestGoogleSearch.test_search)
+FAIL: test_search (test.TestSearch.test_search)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/alumnium/google_test.py", line 17, in test_search
+  File "/alumnium/search_test.py", line 17, in test_search
     self.assertEqual(symbol, "Al")
 AssertionError: 'Hg' != 'Al'
 - Hg
@@ -460,16 +460,16 @@ The test failed as expected, let's fix it and re-run to make sure it's passing:
 <Tabs syncKey="driver">
 
     <TabItem label="Selenium">
-        ```python title="google_test.py" del={17} ins={18}
+        ```python title="search_test.py" del={17} ins={18}
         import unittest
         from alumnium import Alumni
         from selenium.webdriver import Chrome
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 driver = Chrome()
-                driver.get("https://google.com")
+                driver.get("https://duckduckgo.com")
                 self.al = Alumni(driver)
 
             def test_search(self):
@@ -483,16 +483,16 @@ The test failed as expected, let's fix it and re-run to make sure it's passing:
     </TabItem>
 
     <TabItem label="Playwright">
-        ```python title="google_test.py" del={17} ins={18}
+        ```python title="search_test.py" del={17} ins={18}
         import unittest
         from alumnium import Alumni
         from playwright.sync_api import sync_playwright
 
 
-        class TestGoogleSearch(unittest.TestCase):
+        class TestSearch(unittest.TestCase):
             def setUp(self):
                 page = sync_playwright().start().chromium.launch(headless=False).new_page()
-                page.goto("https://google.com")
+                page.goto("https://duckduckgo.com")
                 self.al = Alumni(page)
 
             def test_search(self):
@@ -508,7 +508,7 @@ The test failed as expected, let's fix it and re-run to make sure it's passing:
 </Tabs>
 
 ```bash title="Running test"
-$ python -m unittest google_test.py
+$ python -m unittest search_test.py
 .
 ----------------------------------------------------------------------
 Ran 1 test in 15.162s

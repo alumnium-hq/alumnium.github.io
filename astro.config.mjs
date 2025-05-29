@@ -98,6 +98,10 @@ export default defineConfig({
               slug: "docs/guides/retrievals",
             },
             {
+              label: "Caching",
+              slug: "docs/guides/caching",
+            },
+            {
               label: "Self-hosting LLMs",
               slug: "docs/guides/self-hosting",
             },

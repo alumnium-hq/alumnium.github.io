@@ -11,7 +11,7 @@ Playwright driver supports both *headful* and *headless* modes, while Selenium d
 
 ## Mobile Support
 
-Alumnium currently supports Appium with XCUITest driver only, so it can be used to automation iOS platforms. Support for Android is [coming soon][2].
+Alumnium currently supports Appium with XCUITest driver only, so it can be used to automate iOS platforms. Support for Android is [coming soon][2].
 
 ## Environment Variables
 

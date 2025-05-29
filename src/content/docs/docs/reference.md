@@ -9,6 +9,10 @@ Alumnium works by building an accessibility tree of the webpage. Unfortunately, 
 
 Playwright driver supports both *headful* and *headless* modes, while Selenium driver only supports the *headful* mode.
 
+## Mobile Support
+
+Alumnium currently supports Appium with XCUITest driver only, so it can be used to automation iOS platforms. Support for Android is [coming soon][2].
+
 ## Environment Variables
 
 The following environment variables can be used to control the behavior of Alumnium.
@@ -58,3 +62,4 @@ Select AI provider and model to use.
 | openai        | gpt-4o-mini-2024-07-18                 | OpenAI API.                                                              |
 
 [1]: https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/troubleshooting-workflows/enabling-debug-logging
+[2]: https://github.com/alumnium-hq/alumnium/issues/112

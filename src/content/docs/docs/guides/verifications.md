@@ -1,9 +1,9 @@
 ---
 title: Checking Verifications
-description: Learn how Alumnium verifies web pages with AI-powered checks. Ensure test accuracy with concrete verifications and vision support.
+description: Learn how Alumnium verifies applications with AI-powered checks. Ensure test accuracy with concrete verifications and vision support.
 ---
 
-Alumnium can verify statements on the web page when you instruct it to **check** something. It analyzes the current state of the web page, optionally including its screenshot, and decides whether the verification successfully passes or fails.
+Alumnium can verify statements on the application when you instruct it to **check** something. It analyzes the current state of the mobile or web application, optionally including its screenshot, and decides whether the verification successfully passes or fails.
 
 For example, after performing a Google search for "Mercury element", you might want to check that search results contain a link to the Wikipedia:
 
@@ -59,7 +59,7 @@ Meta Llama 3.2 and DeepSeek V3 [does not support vision verifications][2] yet.
 A screenshot is taken for the visible part of the page.
 :::
 
-Occasionally, the web page state is not enough for Alumnium to perform the check. In this case, instruct it to take a screenshot of the page and include it in the verification decision. This is useful when you need to check the visual representation of elements or their spatial relationships.
+Occasionally, the application state is not enough for Alumnium to perform the check. In this case, instruct it to take a screenshot of the page and include it in the verification decision. This is useful when you need to check the visual representation of elements or their spatial relationships.
 
 For example, in your test for the To-Do application, you might need a check that a completed task is shown with a strikethrough style.
 

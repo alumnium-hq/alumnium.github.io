@@ -1,9 +1,9 @@
 ---
 title: Getting Data
-description: Learn how Alumnium retrieves data from web pages with AI. Ensure test accuracy by checking the data directly.
+description: Learn how Alumnium retrieves data from applications with AI. Ensure test accuracy by checking the data directly.
 ---
 
-Alumnium can retrieve data from a web page when you instruct it to **get** something. It analyzes the current information on the web page, optionally including a screenshot, and extracts the appropriate data.
+Alumnium can retrieve data from an application when you instruct it to **get** something. It analyzes the current information on the mobile or web application, optionally including a screenshot, and extracts the appropriate data.
 
 For example, after creating and completing tasks in the To-Do application, you might want to get the number of pending tasks:
 

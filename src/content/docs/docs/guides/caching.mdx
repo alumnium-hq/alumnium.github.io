@@ -1,0 +1,65 @@
+---
+title: Caching
+description: Learn how Alumnium caches AI communications and increases test performance and stability.
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+Caching system allows to significantly increase performance and stability of tests written with Alumnium. It works by storing the AI responses in a database file, allowing to skip LLM communications unless UI of the application changes. It works best on the CI system which often re-run tests without any underlying changes.
+
+By default, Alumnium provides in-memory cache that is used during tests execution, but discarded at the end. In order to persist the cache database, you need to add a hook in your test runner that _saves_ the cache every time the test passes and _discards_ otherwise:
+
+<Tabs>
+
+    <TabItem label="Behave">
+
+```python
+def after_scenario(context, scenario):
+    # Assuming `context.al` is an instance of `Alumni`.
+    if scenario.status == "passed":
+        context.al.cache.save()
+    else:
+        context.al.cache.discard()
+```
+
+  </TabItem>
+
+  <TabItem label="Pytest">
+
+```python
+from pytest import hookimpl
+
+
+@hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item):
+    outcome = yield
+    report = outcome.get_result()
+    if report.when == "call":
+        # Assuming `al` is a fixture that provides an instance of `Alumni`.
+        al = item.funcargs["al"]
+        if report.passed:
+            al.cache.save()
+        else:
+            al.cache.discard()
+```
+
+  </TabItem>
+</Tabs>
+
+Once the cache is saved, you should see `.alumnium-cache.sqlite` file in the root of your project. This file contains all the AI responses that Alumnium has used during the test execution. This file can be added to `.gitignore` or committed to the repository, depending on your needs.
+
+The cache will be updated automatically when the tests or UI of the application change.
+
+## GitHub Actions
+
+While cache maybe less useful for local test execution, it's a good idea to use it in CI systems like GitHub Actions. This way, you can avoid unnecessary LLM calls and speed up your test runs. Saving and restoring the cache can be done using the `actions/cache` action:
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: .alumnium-cache.sqlite
+    key: alumnium-cache-${{ github.sha }}
+    restore-keys: alumnium-cache-
+```
+
+This configuration will keep update the cache on every commit, falling back to the latest cache in the current or default branch.

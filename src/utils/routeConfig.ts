@@ -60,7 +60,7 @@ export function routeConfig(data: {
     locale: "en-US",
     head: getHead(
       { entry, lang: "en", entryMeta, headings: [], slug: data.slug, id: data.slug, dir: "ltr", locale: "en-US" },
-      { url: new URL(data.slug, "https://alumnium.ai"), generator: "Astro", site: new URL("https://alumnium.ai") },
+      { url: new URL(data.slug, "https://alumnium.ai/blog/"), generator: "Astro", site: new URL("https://alumnium.ai") },
       siteTitle,
     ),
   };

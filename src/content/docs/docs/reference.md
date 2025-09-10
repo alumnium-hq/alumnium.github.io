@@ -17,6 +17,14 @@ Alumnium currently supports Appium with XCUITest driver only, so it can be used 
 
 The following environment variables can be used to control the behavior of Alumnium.
 
+### `ALUMNIUM_CACHE`
+
+Sets the cache provider used by Alumnium. Supported values are:
+
+- `filesystem` (default)
+- `sqlite`
+- `none` or `false`
+
 ### `ALUMNIUM_LOG_LEVEL`
 
 Sets the level used by Alumnium logger. Supported values are:

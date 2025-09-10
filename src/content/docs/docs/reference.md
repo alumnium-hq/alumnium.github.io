@@ -69,5 +69,9 @@ Select AI provider and model to use.
 | ollama        | mistral-small3.1:24b                      | Local model inference with Ollama.                                       |
 | openai        | gpt-4o-mini-2024-07-18                    | OpenAI API.                                                              |
 
+### `ALUMNIUM_OLLAMA_URL`
+
+Sets the URL for Ollama models if you host them externally on a server.
+
 [1]: https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/troubleshooting-workflows/enabling-debug-logging
 [2]: https://github.com/alumnium-hq/alumnium/issues/112

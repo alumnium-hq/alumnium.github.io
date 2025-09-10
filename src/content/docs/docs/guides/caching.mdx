@@ -5,7 +5,7 @@ description: Learn how Alumnium caches AI communications and increases test perf
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-Caching system allows to significantly increase performance and stability of tests written with Alumnium. It works by storing the AI responses in a database file, allowing to skip LLM communications unless UI of the application changes. It works best on the CI system which often re-run tests without any underlying changes.
+Caching system allows to significantly increase performance and stability of tests written with Alumnium. It works by persisting the AI responses in a storage, allowing to skip LLM communications unless UI of the application changes. It works best on the CI system which often re-run tests without any underlying changes.
 
 By default, Alumnium provides in-memory cache that is used during tests execution, but discarded at the end. In order to persist the cache database, you need to add a hook in your test runner that _saves_ the cache every time the test passes and _discards_ otherwise:
 
@@ -46,9 +46,20 @@ def pytest_runtest_makereport(item):
   </TabItem>
 </Tabs>
 
-Once the cache is saved, you should see `.alumnium-cache.sqlite` file in the root of your project. This file contains all the AI responses that Alumnium has used during the test execution. This file can be added to `.gitignore` or committed to the repository, depending on your needs.
+Once the cache is saved, you should see storage files in the root of your project. These files contain all the AI responses that Alumnium has used during the test execution. They can be added to `.gitignore` or committed to the repository, depending on your needs.
 
 The cache will be updated automatically when the tests or UI of the application change.
+
+## Providers
+
+There are two main cache providers at the moment. You can select the provider by setting the `ALUMNIUM_CACHE` environment variable.
+
+| Provider                 | Description                                                                                 | Storage                  |
+| ------------------------ | ------------------------------------------------------------------------------------------- | ------------------------ |
+| `filesystem` _(default)_ | Stores the cache in the filesystem directory.                                               | `.alumnium/cache/`       |
+| `sqlite` _(deprecated)_  | Stores the cache in a SQLite database file. Does no work well with parallel test execution. | `.alumnium-cache.sqlite` |
+
+You can also disable the cache completely by setting the provider to `none` or `false`.
 
 ## GitHub Actions
 
@@ -57,9 +68,9 @@ While cache maybe less useful for local test execution, it's a good idea to use 
 ```yaml
 - uses: actions/cache@v4
   with:
-    path: .alumnium-cache.sqlite
+    path: .alumnium/cache/
     key: alumnium-cache-${{ github.sha }}
     restore-keys: alumnium-cache-
 ```
 
-This configuration will keep update the cache on every commit, falling back to the latest cache in the current or default branch.
+This configuration will keep updating the cache on every commit, falling back to the latest cache in the current or default branch.

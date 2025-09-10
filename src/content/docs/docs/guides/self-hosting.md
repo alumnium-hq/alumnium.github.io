@@ -16,7 +16,7 @@ Alumnium provides several options for using self-hosted LLMs:
 Alumnium supports the following models on Amazon Bedrock:
 
 - [Claude 3 Haiku][2]
-- [Llama 3.2][3]
+- [Llama 4 Maverick][3]
 
 Please follow the respective documentation on how to enable access to these models on Bedrock. Once enabled, configure Alumnium to use it by exporting the following environment variables:
 

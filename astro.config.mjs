@@ -98,6 +98,10 @@ export default defineConfig({
               slug: "docs/guides/retrievals",
             },
             {
+              label: "Focusing Areas",
+              slug: "docs/guides/areas",
+            },
+            {
               label: "Caching",
               slug: "docs/guides/caching",
             },

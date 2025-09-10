@@ -103,6 +103,23 @@ From now on, Alumnium knows what to do when told to delete a task.
   <source src="/videos/learn-2.webm" type="video/webm" />
 </video>
 
+## Extra Tools
+
+Alumnium ships with a set of LLM tools that prove to be most useful for test automation. There are also tools that are disabled by default, but you can enable them (and implement your own) by passing them during initialization:
+
+```python
+from alumnium import Alumni
+from alumnium.tools import NavigateBackTool
+
+al = Alumni(driver, extra_tools=[NavigateBackTool])
+```
+
+The following extra tools are currently supported:
+
+| Tool               | Description                                                             |
+| ------------------ | ----------------------------------------------------------------------- |
+| `NavigateBackTool` | Navigate back to the previous page/screen using the browser/app history |
+
 ## Flakiness
 
 Alumnium automatically waits for the following conditions before attempting to perform any action:

@@ -110,6 +110,7 @@ ollama pull mistral-small3.1:24b
 
 ```bash
 export ALUMNIUM_MODEL="ollama"
+export ALUMNIUM_OLLAMA_URL="..."  # if you host Ollama on a server
 ```
 
 Read next to learn how to write tests!

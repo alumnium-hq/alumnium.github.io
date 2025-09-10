@@ -11,7 +11,7 @@ Alumnium needs access to an AI model to work. The following models are supported
 | [Google][2]             | Gemini 2.0 Flash      |
 | [OpenAI][3] _(default)_ | GPT-4o Mini           |
 | [DeepSeek][12]          | DeepSeek V3           |
-| [Meta][8]               | Llama 3.2 90B         |
+| [Meta][8]               | Llama 4 Maverick 17B  |
 | [Ollama][15]            | Mistral Small 3.1 24B |
 
 These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
@@ -75,13 +75,13 @@ export ALUMNIUM_MODEL="deepseek"
 ## Meta
 
 :::caution
-Llama support is experimental and doesn't work with vision checks. Its performance also highly depends on how you run it. The current implementation works via Amazon Bedrock, but we're looking forward to extending it with Ollama, llama.cpp, etc.
+Llama support is experimental. Its performance also highly depends on how you run it. The current implementation works via Amazon Bedrock, but we're looking forward to extending it with Ollama, llama.cpp, etc.
 :::
 
 To use Meta Llama as an AI provider in Alumnium:
 
 1. Set up an [Amazon Bedrock][9] account.
-2. Enable access to [Llama 3.2][10] models.
+2. Enable access to [Llama 4 Maverick][10] models.
 3. Get the [access key and secret][11].
 4. Export the following environment variables before running tests:
 

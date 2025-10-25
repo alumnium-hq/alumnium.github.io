@@ -24,7 +24,7 @@ assert area.get("last names") == ["Smith", "Bach", "Doe", "Conway"]
 assert area.get("first names") == ["John", "Frank", "Jason", "Tim"]
 ```
 
-You can use all regular Alumnium methods on areas, including `do`, `get`, and `check`. Once located, the area is not automatically updated when UI of the application changes. This means that you need to re-locate area again so it's fresh:
+You can use all regular Alumnium methods on areas, including `do`, `get`, `check`, and `find`. Once located, the area is not automatically updated when UI of the application changes. This means that you need to re-locate area again so it's fresh:
 
 
 ```python

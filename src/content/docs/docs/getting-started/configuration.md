@@ -7,11 +7,12 @@ Alumnium needs access to an AI model to work. The following models are supported
 
 | Provider                | Model                 |
 | ----------------------- | --------------------- |
-| [Anthropic][1]          | Claude 3 Haiku        |
+| [Anthropic][1]          | Claude 4.5 Haiku      |
 | [Google][2]             | Gemini 2.0 Flash      |
 | [OpenAI][3] _(default)_ | GPT-4o Mini           |
 | [DeepSeek][12]          | DeepSeek V3           |
 | [Meta][8]               | Llama 4 Maverick 17B  |
+| [MistralAI][16]         | Mistral Medium 3      |
 | [Ollama][15]            | Mistral Small 3.1 24B |
 
 These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
@@ -70,6 +71,7 @@ To use DeepSeek as an AI provider in Alumnium:
 
 ```bash
 export ALUMNIUM_MODEL="deepseek"
+export DEEPSEEK_API_KEY="sk-..."
 ```
 
 ## Meta
@@ -90,6 +92,19 @@ export ALUMNIUM_MODEL="aws_meta"
 export AWS_ACCESS_KEY="..."
 export AWS_SECRET_KEY="..."
 ```
+
+## MistralAI
+
+To use MistralAI as an AI provider in Alumnium:
+
+1. Get the [API key][17].
+2. Export the following environemnt variables before running testes:
+
+```bash
+export ALUMNIUM_MODEL="mistralai"
+export MISTRAL_API_KEY="..."
+```
+
 
 ## Ollama
 
@@ -130,3 +145,5 @@ Read next to learn how to write tests!
 [13]: https://platform.deepseek.com
 [14]: https://platform.deepseek.com/api_keys
 [15]: https://ollama.com
+[16]: https://mistral.ai/products/ai-studio
+[17]: https://docs.mistral.ai/getting-started/quickstart#account-setup

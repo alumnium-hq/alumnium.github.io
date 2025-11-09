@@ -14,6 +14,7 @@ Alumnium needs access to an AI model to work. The following models are supported
 | [Meta][8]               | Llama 4 Maverick 17B  |
 | [MistralAI][16]         | Mistral Medium 3      |
 | [Ollama][15]            | Mistral Small 3.1 24B |
+[ [xAI]][18]              | Grok 4 Fast           |
 
 These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
 
@@ -128,6 +129,18 @@ export ALUMNIUM_MODEL="ollama"
 export ALUMNIUM_OLLAMA_URL="..."  # if you host Ollama on a server
 ```
 
+## xAI
+
+To use xAI as an AI provider in Alumnium:
+
+1. Get the [API key][19].
+2. Export the following environemnt variables before running testes:
+
+```bash
+export ALUMNIUM_MODEL="xai"
+export XAI_API_KEY="xai-..."
+```
+
 Read next to learn how to write tests!
 
 [1]: https://www.anthropic.com
@@ -147,3 +160,5 @@ Read next to learn how to write tests!
 [15]: https://ollama.com
 [16]: https://mistral.ai/products/ai-studio
 [17]: https://docs.mistral.ai/getting-started/quickstart#account-setup
+[18]: https://x.ai
+[19]: https://x.ai/api

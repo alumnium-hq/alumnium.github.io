@@ -82,5 +82,9 @@ export ALUMNIUM_MODEL="openai/gpt-5"
 
 Sets the URL for Ollama models if you host them externally on a server.
 
+### `OPENAI_CUSTOM_URL`
+
+Sets the URL for OpenAI models if you access them via custom endpoint.
+
 [1]: https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/troubleshooting-workflows/enabling-debug-logging
 [2]: https://github.com/alumnium-hq/alumnium/issues/112

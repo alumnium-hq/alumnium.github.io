@@ -8,18 +8,19 @@ Alumnium needs access to an AI model to work. The following models are supported
 | Provider                | Model                 |
 | ----------------------- | --------------------- |
 | [Anthropic][1]          | Claude 4.5 Haiku      |
+| [GitHub][20]            | GPT-4o Mini           |
 | [Google][2]             | Gemini 2.0 Flash      |
 | [OpenAI][3] _(default)_ | GPT-4o Mini           |
 | [DeepSeek][12]          | DeepSeek V3           |
 | [Meta][8]               | Llama 4 Maverick 17B  |
 | [MistralAI][16]         | Mistral Medium 3      |
 | [Ollama][15]            | Mistral Small 3.1 24B |
-[ [xAI]][18]              | Grok 4 Fast           |
+| [xAI][18]              | Grok 4 Fast           |
 
 These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
 
 :::tip[Trying out?]
-Google provides [free-of-charge plan][7] in many regions, which is convenient for experimenting. Alumnium automatically retries the requests when hitting rate limits on the free plans.
+[Google][7] and [GitHub][21] provide free-of-charge plans in many regions, which are convenient for experimenting. Alumnium automatically retries the requests when hitting rate limits on the free plans.
 :::
 
 ## Anthropic
@@ -32,6 +33,18 @@ To use Anthropic as an AI provider in Alumnium:
 ```bash
 export ALUMNIUM_MODEL="anthropic"
 export ANTHROPIC_API_KEY="sk-ant-..."
+```
+
+## GitHub
+
+To use GitHub Models AI provider with OpenAI in Alumnium:
+
+1. Get the [personal access token][21].
+2. Export the following environment variables before running tests:
+
+```bash
+export ALUMNIUM_MODEL="github"
+export OPENAI_API_KEY="github_pat_..."
 ```
 
 ## Google
@@ -162,3 +175,5 @@ Read next to learn how to write tests!
 [17]: https://docs.mistral.ai/getting-started/quickstart#account-setup
 [18]: https://x.ai
 [19]: https://x.ai/api
+[20]: https://docs.github.com/en/github-models
+[21]: https://docs.github.com/en/github-models/use-github-models/prototyping-with-ai-models#experimenting-with-ai-models-using-the-api

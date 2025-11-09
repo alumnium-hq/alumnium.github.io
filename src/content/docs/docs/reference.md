@@ -65,6 +65,7 @@ Select AI provider and model to use.
 | aws_anthropic | global.anthropic.claude-haiku-4-5-20251001-v1:0 | Serverless Amazon Bedrock API.                                           |
 | aws_meta      | us.meta.llama4-maverick-17b-instruct-v1:0       | Serverless Amazon Bedrock API.                                           |
 | deepseek      | deepseek-chat                                   | DeepSeek Platform.                                                       |
+| github        | gpt-4o-mini                                     | GitHub Models API.                                                       |
 | google        | gemini-2.0-flash-001                            | Google AI Studio API.                                                    |
 | mistralai     | mistral-medium-2505                             | Mistral AI Studio API.                                                   |
 | ollama        | mistral-small3.1:24b                            | Local model inference with Ollama.                                       |

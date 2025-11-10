@@ -19,10 +19,10 @@ export default defineConfig({
       logo: {
         src: "./public/favicon.svg",
         alt: "Alumnium",
+        replacesTitle: true,
       },
       title: "Alumnium",
       social: [
-        { icon: "document", label: "Documentation", href: "/docs" },
         { icon: "github", label: "GitHub", href: "https://github.com/alumnium-hq/alumnium" },
         { icon: "discord", label: "Discord", href: "https://discord.gg/mP29tTtKHg" },
         { icon: "slack", label: "Slack", href: "https://seleniumhq.slack.com/channels/alumnium" },

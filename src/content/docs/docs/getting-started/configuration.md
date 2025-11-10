@@ -3,6 +3,8 @@ title: Configuration
 description: Configure Alumnium with AI providers like OpenAI, Anthropic, Google, Meta, DeepSeek and Ollama. Learn how to set up API keys and environment variables for test automation.
 ---
 
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
 Alumnium needs access to an AI model to work. The following models are supported:
 
 | Provider                | Model                 |

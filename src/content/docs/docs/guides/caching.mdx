@@ -4,14 +4,16 @@ description: Learn how Alumnium caches AI communications and increases test perf
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
+import LanguageContent from "../../../../components/LanguageContent.astro";
 
 Caching system allows to significantly increase performance and stability of tests written with Alumnium. It works by persisting the AI responses in a storage, allowing to skip LLM communications unless UI of the application changes. It works best on the CI system which often re-run tests without any underlying changes.
 
 By default, Alumnium provides in-memory cache that is used during tests execution, but discarded at the end. In order to persist the cache database, you need to add a hook in your test runner that _saves_ the cache every time the test passes and _discards_ otherwise:
 
-<Tabs>
+<LanguageContent lang="python">
 
-    <TabItem label="Behave">
+<Tabs>
+<TabItem label="Behave">
 
 ```python
 def after_scenario(context, scenario):
@@ -22,9 +24,8 @@ def after_scenario(context, scenario):
         context.al.cache.discard()
 ```
 
-  </TabItem>
-
-  <TabItem label="Pytest">
+</TabItem>
+<TabItem label="Pytest">
 
 ```python
 from pytest import hookimpl
@@ -43,8 +44,49 @@ def pytest_runtest_makereport(item):
             al.cache.discard()
 ```
 
-  </TabItem>
+</TabItem>
 </Tabs>
+
+</LanguageContent>
+
+<LanguageContent lang="typescript">
+
+<Tabs>
+<TabItem label="Mocha">
+
+```typescript
+export const mochaHooks = {
+  async afterEach(this: Mocha.Context) {
+    // Assuming `al` is an instance of `Alumni`.
+    if (this.currentTest?.state === "failed") {
+      await al.cache.discard();
+    } else {
+      await al.cache.save();
+    }
+  },
+};
+```
+
+</TabItem>
+<TabItem label="Playwright">
+
+```typescript
+import { test } from "@playwright/test";
+
+// Assuming `al` is an instance of `Alumni`.
+test.afterEach(async ({ al }, testInfo) => {
+  if (testInfo.status === testInfo.expectedStatus) {
+    await al.cache.save();
+  } else {
+    await al.cache.discard();
+  }
+});
+```
+
+</TabItem>
+</Tabs>
+
+</LanguageContent>
 
 Once the cache is saved, you should see storage files in the root of your project. These files contain all the AI responses that Alumnium has used during the test execution. They can be added to `.gitignore` or committed to the repository, depending on your needs.
 

@@ -2,13 +2,15 @@
 import SocialIcons from "@astrojs/starlight/components/SocialIcons.astro";
 import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
 import LanguageSelect from "../LanguageSelect.astro";
+
+const isDocsPage = Astro.url.pathname.startsWith("/docs");
 ---
 
 <div class="mobile-preferences sl-flex">
   <div class="social-icons">
     <SocialIcons />
   </div>
-  <LanguageSelect />
+  {isDocsPage && <LanguageSelect />}
   <ThemeSelect />
 </div>
 

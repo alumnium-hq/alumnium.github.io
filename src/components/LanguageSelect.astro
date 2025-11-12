@@ -9,11 +9,11 @@ import { Icon } from "@astrojs/starlight/components";
       <Icon name="seti:python" class="language-icon python-icon" />
       <Icon name="seti:tsconfig" class="language-icon typescript-icon" />
     </span>
-    <select value="python">
+    <select value="python" class="text-md lg:text-sm">
       <option value="python">Python</option>
       <option value="typescript">TypeScript</option>
     </select>
-    <Icon name="down-caret" size="1.25em" />
+    <Icon name="down-caret" class="caret" />
   </label>
 </starlight-language-select>
 
@@ -63,16 +63,14 @@ import { Icon } from "@astrojs/starlight/components";
     display: flex;
     align-items: center;
     gap: 0.4em;
-    color: var(--sl-color-gray-1);
+    color: var(--sl-color-gray-2);
     border-radius: 0.25rem;
     padding: 0.5rem;
     margin: -0.25rem;
-    font-size: var(--sl-text-sm);
   }
 
   label:focus-within {
-    outline: 3px solid var(--sl-color-accent);
-    opacity: 0.5;
+    outline: 2px solid var(--sl-color-accent);
     outline-offset: 2px;
   }
 
@@ -118,10 +116,15 @@ import { Icon } from "@astrojs/starlight/components";
   select {
     border: 0;
     background: transparent;
+    color: var(--sl-color-gray-2);
     font-family: inherit;
-    font-size: inherit;
     cursor: pointer;
     appearance: none;
     outline: none;
+  }
+
+  .caret {
+    font-size: 1.25em;
+    inset-inline-end: 0;
   }
 </style>

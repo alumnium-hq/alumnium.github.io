@@ -45,6 +45,8 @@ const props = {
   lang,
   locale,
 };
+
+const isDocsPage = Astro.url.pathname.startsWith("/docs");
 ---
 
 <div class="header">
@@ -60,7 +62,7 @@ const props = {
   </div>
   <div class="print:hidden right-group">
     <SocialIcons {...props} />
-    <LanguageSelect />
+    {isDocsPage && <LanguageSelect />}
     <ThemeSelect {...props} />
   </div>
 

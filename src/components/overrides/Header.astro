@@ -58,12 +58,10 @@ const props = {
   <div class="sl-flex print:hidden">
     {!!hasSearch && <Search {...props} />}
   </div>
-  <div class="sl-flex flex-row items-center gap-4 sm:sl-hidden">
-    <div class="sl-flex sm:sl-hidden print:hidden right-group">
-      <SocialIcons {...props} />
-      <LanguageSelect />
-      <ThemeSelect {...props} />
-    </div>
+  <div class="print:hidden right-group">
+    <SocialIcons {...props} />
+    <LanguageSelect />
+    <ThemeSelect {...props} />
   </div>
 
   <style>
@@ -85,10 +83,21 @@ const props = {
         min-width: 0;
       }
 
-      .right-group,
+      .right-group {
+        display: none;
+        gap: 1rem;
+        align-items: center;
+      }
+
       .social-icons {
         gap: 1rem;
         align-items: center;
+      }
+
+      @media (min-width: 50rem) {
+        .right-group {
+          display: flex;
+        }
       }
       .social-icons::after {
         content: "";

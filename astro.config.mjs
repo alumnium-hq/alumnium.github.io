@@ -124,6 +124,7 @@ export default defineConfig({
       components: {
         // Override the default `Header` component.
         Header: "./src/components/overrides/Header.astro",
+        MobileMenuFooter: "./src/components/overrides/MobileMenuFooter.astro",
       },
     }),
     sitemap({}),

@@ -1,130 +1,86 @@
 ---
+import Select from "@astrojs/starlight/components/Select.astro";
 import { Icon } from "@astrojs/starlight/components";
 ---
 
-<starlight-language-select data-current-language="python">
-  <label>
-    <span class="sr-only">Select language</span>
-    <span class="icon-wrapper">
-      <Icon name="seti:python" class="language-icon python-icon" />
-      <Icon name="seti:tsconfig" class="language-icon typescript-icon" />
-    </span>
-    <select value="python" class="text-md lg:text-sm">
-      <option value="python">Python</option>
-      <option value="typescript">TypeScript</option>
-    </select>
-    <Icon name="down-caret" class="caret" />
-  </label>
+<starlight-language-select>
+  <Select
+    icon="seti:python"
+    label="Select language"
+    value="python"
+    options={[
+      { label: "Python", selected: true, value: "python" },
+      { label: "TypeScript", selected: false, value: "typescript" },
+    ]}
+    width="8em"
+  />
 </starlight-language-select>
 
 <script>
   type Language = "python" | "typescript";
 
-  class LanguageSelect extends HTMLElement {
+  /** Key in `localStorage` to store language preference at. */
+  const storageKey = "starlight-language";
+
+  /** Get a typesafe language string from any JS value (unknown values are coerced to `'python'`). */
+  const parseLanguage = (language: unknown): Language =>
+    language === "python" || language === "typescript" ? language : "python";
+
+  /** Load the user’s preference from `localStorage`. */
+  const loadLanguage = (): Language =>
+    parseLanguage(typeof localStorage !== "undefined" && localStorage.getItem(storageKey));
+
+  /** Store the user’s preference in `localStorage`. */
+  function storeLanguage(language: Language): void {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(storageKey, language === "python" || language === "typescript" ? language : "");
+    }
+  }
+
+  function updatePickerIcon(language: Language): void {
+    document.querySelectorAll("starlight-language-select").forEach((picker) => {
+      const select = picker.querySelector("select");
+      if (select) select.value = language;
+      const tmpl = document.querySelector(`#language-icons`);
+      let newIcon: Element | null = null;
+      if (tmpl instanceof HTMLTemplateElement) {
+        newIcon = tmpl.content.querySelector("." + language);
+      } else if (tmpl) {
+        // If the element isn't a <template>, try querying it directly as a fallback.
+        newIcon = tmpl.querySelector("." + language);
+      }
+      if (newIcon) {
+        const oldIcon = picker.querySelector("svg.label-icon");
+        if (oldIcon) {
+          oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+        }
+      }
+    });
+  }
+
+  /** Update select menu UI, document theme, and local storage state. */
+  function onLanguageChange(language: Language): void {
+    // StarlightLanguageProvider.updatePickers(language);
+    document.documentElement.dataset.language = language;
+    storeLanguage(language);
+    updatePickerIcon(language);
+  }
+
+  class StarlightLanguageSelect extends HTMLElement {
     constructor() {
       super();
-      const select = this.querySelector("select");
-      if (!select) return;
-
-      // Restore saved language preference
-      const savedLanguage = this.getLanguage();
-      select.value = savedLanguage;
-      this.setLanguage(savedLanguage);
-
-      // Listen for language changes
-      select.addEventListener("change", (e) => {
-        const newLanguage = (e.target as HTMLSelectElement).value as Language;
-        this.setLanguage(newLanguage);
+      onLanguageChange(loadLanguage());
+      this.querySelector("select")?.addEventListener("change", (e) => {
+        if (e.currentTarget instanceof HTMLSelectElement) {
+          onLanguageChange(parseLanguage(e.currentTarget.value));
+        }
       });
     }
-
-    getLanguage(): Language {
-      const stored = localStorage.getItem("starlight-language");
-      return (stored === "typescript" ? "typescript" : "python") as Language;
-    }
-
-    setLanguage(language: Language) {
-      localStorage.setItem("starlight-language", language);
-      document.documentElement.dataset.language = language;
-
-      // Update the data attribute to toggle icon visibility
-      this.dataset.currentLanguage = language;
-
-      // Dispatch custom event for tab synchronization
-      window.dispatchEvent(new CustomEvent("starlight-language-change", { detail: { language } }));
-    }
   }
-
-  customElements.define("starlight-language-select", LanguageSelect);
+  customElements.define("starlight-language-select", StarlightLanguageSelect);
 </script>
 
-<style>
-  label {
-    display: flex;
-    align-items: center;
-    gap: 0.4em;
-    color: var(--sl-color-gray-2);
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    margin: -0.25rem;
-  }
-
-  label:focus-within {
-    outline: 2px solid var(--sl-color-accent);
-    outline-offset: 2px;
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-
-  .icon-wrapper {
-    display: flex;
-    align-items: center;
-    width: 1em;
-    height: 1em;
-    position: relative;
-  }
-
-  .language-icon {
-    position: absolute;
-    width: 1em;
-    height: 1em;
-    pointer-events: none;
-  }
-
-  .typescript-icon {
-    display: none;
-  }
-
-  starlight-language-select[data-current-language="typescript"] .python-icon {
-    display: none;
-  }
-
-  starlight-language-select[data-current-language="typescript"] .typescript-icon {
-    display: block;
-  }
-
-  select {
-    border: 0;
-    background: transparent;
-    color: var(--sl-color-gray-2);
-    font-family: inherit;
-    cursor: pointer;
-    appearance: none;
-    outline: none;
-  }
-
-  .caret {
-    font-size: 1.25em;
-    inset-inline-end: 0;
-  }
-</style>
+<template id="language-icons">
+  <Icon name="seti:python" class="python" />
+  <Icon name="seti:tsconfig" class="typescript" />
+</template>

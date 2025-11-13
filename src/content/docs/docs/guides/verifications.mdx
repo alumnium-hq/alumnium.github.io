@@ -20,7 +20,7 @@ al.check("search results contain Wikipedia article")
 <LanguageContent lang="typescript">
 
 ```typescript
-await al.check("search results contain Wikipedia article")
+await al.check("search results contain Wikipedia article");
 ```
 
 </LanguageContent>
@@ -49,13 +49,23 @@ al.check("task is not completed")
 <LanguageContent lang="typescript">
 
 ```typescript
-await al.check("task is completed")
-await al.check("task is not completed")
+await al.check("task is completed");
+await al.check("task is not completed");
 ```
 
 </LanguageContent>
 
-<video class="rounded-xl" alt="A screen recording of Alumnium false positive when 1 out of 2 tasks is completed" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
+<video
+  class="rounded-xl"
+  alt="A screen recording of Alumnium false positive when 1 out of 2 tasks is completed"
+  controls
+  controlslist="nofullscreen"
+  disablepictureinpicture
+  muted
+  playsinline
+  width="100%"
+  height="auto"
+>
   <source src="/videos/check-specific-1.mp4" type="video/mp4" />
   <source src="/videos/check-specific-1.webm" type="video/webm" />
 </video>
@@ -74,13 +84,23 @@ al.check("task 'buy bread' is not completed")
 <LanguageContent lang="typescript">
 
 ```typescript
-await al.check("task 'buy milk' is completed")
-await al.check("task 'buy bread' is not completed")
+await al.check("task 'buy milk' is completed");
+await al.check("task 'buy bread' is not completed");
 ```
 
 </LanguageContent>
 
-<video class="rounded-xl" alt="A screen recording of Alumnium passing when 1 out of 2 tasks is completed" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
+<video
+  class="rounded-xl"
+  alt="A screen recording of Alumnium passing when 1 out of 2 tasks is completed"
+  controls
+  controlslist="nofullscreen"
+  disablepictureinpicture
+  muted
+  playsinline
+  width="100%"
+  height="auto"
+>
   <source src="/videos/check-specific-2.mp4" type="video/mp4" />
   <source src="/videos/check-specific-2.webm" type="video/webm" />
 </video>
@@ -114,7 +134,7 @@ al.check("'buy milk' title font style is strikethrough")
 <LanguageContent lang="typescript">
 
 ```typescript
-await al.check("'buy milk' title font style is strikethrough")
+await al.check("'buy milk' title font style is strikethrough");
 ```
 
 </LanguageContent>
@@ -138,12 +158,22 @@ al.check("'buy milk' title font style is strikethrough", vision=True)
 <LanguageContent lang="typescript">
 
 ```typescript
-await al.check("'buy milk' title font style is strikethrough", { vision: true })
+await al.check("'buy milk' title font style is strikethrough", { vision: true });
 ```
 
 </LanguageContent>
 
-<video class="rounded-xl" alt="A screen recording of Alumnium failing to determe font style of completed task" controls controlslist="nofullscreen" disablepictureinpicture muted playsinline width="100%" height="auto">
+<video
+  class="rounded-xl"
+  alt="A screen recording of Alumnium failing to determe font style of completed task"
+  controls
+  controlslist="nofullscreen"
+  disablepictureinpicture
+  muted
+  playsinline
+  width="100%"
+  height="auto"
+>
   <source src="/videos/check-vision.mp4" type="video/mp4" />
   <source src="/videos/check-vision.webm" type="video/webm" />
 </video>

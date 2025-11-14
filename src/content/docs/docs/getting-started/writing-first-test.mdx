@@ -9,8 +9,34 @@ import LanguageContent from "../../../../components/LanguageContent.astro";
 Let's see how we can write a simple test that would open DuckDuckGo, search for a Mercury element, ensure that search results are loaded, include the Wikipedia article about the element, and check that its symbol is presented correctly on the page.
 
 :::note
-Alumnium can be used with any test runner you like. For the purpose of simplicity, this guide uses built-in test frameworks.
+Alumnium can be used with any test runner you like. For the examples in this guide, we'll use [Pytest][2].
 :::
+
+## Install Dependencies
+
+Make sure you have Alumnium and either Selenium or Playwright installed in your project.
+
+<LanguageContent lang="python">
+
+<Tabs syncKey="driver">
+<TabItem label="Selenium">
+
+```bash title="Installing dependencies..."
+$ pip install alumnium selenium
+```
+
+</TabItem>
+<TabItem label="Playwright">
+
+```bash title="Installing dependencies..."
+$ pip install alumnium pytest-playwright
+$ playwright install chromium
+```
+
+</TabItem>
+
+</Tabs>
+</LanguageContent>
 
 ## Setup Browser
 
@@ -21,7 +47,7 @@ Start by creating a test file for your tests and instantiating a browser instanc
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="search_test.py"
+```python title="test_search.py"
 import unittest
 from selenium.webdriver import Chrome
 
@@ -38,18 +64,12 @@ class TestSearch(unittest.TestCase):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="search_test.py"
-import unittest
-from playwright.sync_api import sync_playwright
+```python title="test_search.py"
+from playwright.sync_api import Page
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        page = sync_playwright().start().chromium.launch(headless=False).new_page()
-        page.goto("https://duckduckgo.com")
-
-    def test_search(self):
-        pass
+def test_search(page: Page):
+    page.goto("https://duckduckgo.com")
 ```
 
 </TabItem>
@@ -58,13 +78,14 @@ class TestSearch(unittest.TestCase):
 Now run the test. You should see a Chrome browser window with DuckDuckGo opened.
 
 ```bash title="Running test..."
-$ python -m unittest search_test.py
-.
-----------------------------------------------------------------------
-Ran 1 test in 3.809s
-
-OK
+$ pytest --quiet
+...
+1 passed in 1.32s
 ```
+
+:::note
+For Playwright, you might need to run with `--headed` flag to see the browser window.
+:::
 
 </LanguageContent>
 
@@ -74,21 +95,21 @@ OK
 <TabItem label="Selenium">
 
 ```typescript title="search.test.ts"
-import { Builder, Browser } from 'selenium-webdriver';
+import { Builder, Browser } from "selenium-webdriver";
 
-describe('TestSearch', () => {
+describe("TestSearch", () => {
   let driver;
 
   beforeEach(async () => {
     driver = await new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://duckduckgo.com');
+    await driver.get("https://duckduckgo.com");
   });
 
   afterEach(async () => {
     await driver?.quit();
   });
 
-  it('should search', async () => {
+  it("should search", async () => {
     // Test implementation
   });
 });
@@ -98,19 +119,19 @@ describe('TestSearch', () => {
 <TabItem label="Playwright">
 
 ```typescript title="search.test.ts"
-import { test } from '@playwright/test';
-import { chromium } from 'playwright';
+import { test } from "@playwright/test";
+import { chromium } from "playwright";
 
-test.describe('TestSearch', () => {
+test.describe("TestSearch", () => {
   let page;
 
   test.beforeEach(async () => {
     const browser = await chromium.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('https://duckduckgo.com');
+    await page.goto("https://duckduckgo.com");
   });
 
-  test('should search', async () => {
+  test("should search", async () => {
     // Test implementation
   });
 });
@@ -136,7 +157,7 @@ Now let's add the code that would instantiate Alumnium using the browser:
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="search_test.py" ins={2, 10}
+```python title="test_search.py" ins={2, 10}
 import unittest
 from alumnium import Alumni
 from selenium.webdriver import Chrome
@@ -155,20 +176,18 @@ class TestSearch(unittest.TestCase):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="search_test.py" ins={2, 10}
-import unittest
+```python title="test_search.py" ins={1, 3, 6-8} ins="al: Alumni"
 from alumnium import Alumni
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Page
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        page = sync_playwright().start().chromium.launch(headless=False).new_page()
-        page.goto("https://duckduckgo.com")
-        self.al = Alumni(page)
+@fixture
+def al(page: Page):
+    return Alumni(page)
 
-    def test_search(self):
-        pass
+def test_search(al: Alumni, page: Page):
+    page.goto("https://duckduckgo.com")
 ```
 
 </TabItem>
@@ -177,12 +196,9 @@ class TestSearch(unittest.TestCase):
 The test should still work fine, let's re-run it to make sure:
 
 ```bash title="Running test..."
-$ python -m unittest search_test.py
-.
-----------------------------------------------------------------------
-Ran 1 test in 3.044s
-
-OK
+$ pytest --quiet
+...
+1 passed in 7.81s
 ```
 
 </LanguageContent>
@@ -193,16 +209,16 @@ OK
 <TabItem label="Selenium">
 
 ```typescript title="search.test.ts" ins={2, 11}
-import { Builder, Browser } from 'selenium-webdriver';
-import { Alumni } from 'alumnium';
+import { Builder, Browser } from "selenium-webdriver";
+import { Alumni } from "alumnium";
 
-describe('TestSearch', () => {
+describe("TestSearch", () => {
   let driver;
   let al;
 
   beforeEach(async () => {
     driver = await new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://duckduckgo.com');
+    await driver.get("https://duckduckgo.com");
     al = new Alumni(driver);
   });
 
@@ -210,7 +226,7 @@ describe('TestSearch', () => {
     await driver?.quit();
   });
 
-  it('should search', async () => {
+  it("should search", async () => {
     // Test implementation
   });
 });
@@ -220,22 +236,22 @@ describe('TestSearch', () => {
 <TabItem label="Playwright">
 
 ```typescript title="search.test.ts" ins={3, 13}
-import { test } from '@playwright/test';
-import { chromium } from 'playwright';
-import { Alumni } from 'alumnium';
+import { test } from "@playwright/test";
+import { chromium } from "playwright";
+import { Alumni } from "alumnium";
 
-test.describe('TestSearch', () => {
+test.describe("TestSearch", () => {
   let page;
   let al;
 
   test.beforeEach(async () => {
     const browser = await chromium.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('https://duckduckgo.com');
+    await page.goto("https://duckduckgo.com");
     al = new Alumni(page);
   });
 
-  test('should search', async () => {
+  test("should search", async () => {
     // Test implementation
   });
 });
@@ -265,7 +281,7 @@ Now let's add some actions that Alumnium should **do** on the page. Our test nee
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="search_test.py" del={13} ins={14}
+```python title="test_search.py" del={13} ins={14}
 import unittest
 from alumnium import Alumni
 from selenium.webdriver import Chrome
@@ -285,21 +301,20 @@ class TestSearch(unittest.TestCase):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="search_test.py" del={13} ins={14}
-import unittest
+```python title="test_search.py" ins={13}
 from alumnium import Alumni
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Page
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        page = sync_playwright().start().chromium.launch(headless=False).new_page()
-        page.goto("https://duckduckgo.com")
-        self.al = Alumni(page)
+@fixture
+def al(page: Page):
+    return Alumni(page)
 
-    def test_search(self):
-        pass
-        self.al.do("search for 'Mercury element'")
+
+def test_search(al: Alumni, page: Page):
+    page.goto("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
 ```
 
 </TabItem>
@@ -308,12 +323,9 @@ class TestSearch(unittest.TestCase):
 Run the test, you should now see "Mercury element" typed in the search box and the page with results loaded.
 
 ```bash title="Running test..."
-$ python -m unittest search_test.py
-.
-----------------------------------------------------------------------
-Ran 1 test in 4.133s
-
-OK
+$ pytest --quiet
+...
+1 passed in 11.34s
 ```
 
 </LanguageContent>
@@ -324,16 +336,16 @@ OK
 <TabItem label="Selenium">
 
 ```typescript title="search.test.ts" ins={20}
-import { Builder, Browser } from 'selenium-webdriver';
-import { Alumni } from 'alumnium';
+import { Builder, Browser } from "selenium-webdriver";
+import { Alumni } from "alumnium";
 
-describe('TestSearch', () => {
+describe("TestSearch", () => {
   let driver;
   let al;
 
   beforeEach(async () => {
     driver = await new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://duckduckgo.com');
+    await driver.get("https://duckduckgo.com");
     al = new Alumni(driver);
   });
 
@@ -341,7 +353,7 @@ describe('TestSearch', () => {
     await driver?.quit();
   });
 
-  it('should search', async () => {
+  it("should search", async () => {
     await al.do("search for 'Mercury element'");
   });
 });
@@ -351,22 +363,22 @@ describe('TestSearch', () => {
 <TabItem label="Playwright">
 
 ```typescript title="search.test.ts" ins={18}
-import { test } from '@playwright/test';
-import { chromium } from 'playwright';
-import { Alumni } from 'alumnium';
+import { test } from "@playwright/test";
+import { chromium } from "playwright";
+import { Alumni } from "alumnium";
 
-test.describe('TestSearch', () => {
+test.describe("TestSearch", () => {
   let page;
   let al;
 
   test.beforeEach(async () => {
     const browser = await chromium.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('https://duckduckgo.com');
+    await page.goto("https://duckduckgo.com");
     al = new Alumni(page);
   });
 
-  test('should search', async () => {
+  test("should search", async () => {
     await al.do("search for 'Mercury element'");
   });
 });
@@ -394,7 +406,7 @@ Common wisdom says to _never trust a test you haven't seen fail_. Let's add the 
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="search_test.py" ins={14}
+```python title="test_search.py" ins={14}
 import unittest
 from alumnium import Alumni
 from selenium.webdriver import Chrome
@@ -414,21 +426,21 @@ class TestSearch(unittest.TestCase):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="search_test.py" ins={14}
-import unittest
+```python title="test_search.py" ins={14}
 from alumnium import Alumni
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Page
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        page = sync_playwright().start().chromium.launch(headless=False).new_page()
-        page.goto("https://duckduckgo.com")
-        self.al = Alumni(page)
+@fixture
+def al(page: Page):
+    return Alumni(page)
 
-    def test_search(self):
-        self.al.do("search for 'Mercury element'")
-        self.al.check("page title contains Alumnium word")
+
+def test_search(al: Alumni, page: Page):
+    page.goto("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Alumnium word")
 ```
 
 </TabItem>
@@ -436,24 +448,13 @@ class TestSearch(unittest.TestCase):
 
 Now let's run our test:
 
-```bash title="Running test..." wrap {12}
-$ python -m unittest search_test.py
+```bash title="Running test..." wrap {4}
+$ pytest --quiet
 F
-======================================================================
-FAIL: test_search (test.TestSearch.test_search)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/alumnium/search_test.py", line 14, in test_search
-    self.al.check("page title contains Alumnium word")
-  File "/alumnium/alumnium/alumni.py", line 90, in check
-    assert result.value, result.explanation
-           ^^^^^^^^^^^^
-AssertionError: The page title is 'Mercury element - DuckDuckGo Search', which does not contain the word 'Alumnium'.
-
-----------------------------------------------------------------------
-Ran 1 test in 7.599s
-
-FAILED (failures=1)
+...
+E       AssertionError: The requested information is whether the page title contains the word 'Aluminium'. The page title is 'Mercury element at DuckDuckGo', which does not include the word 'Aluminium'. Therefore, the statement is false.
+...
+1 failed in 25.21s
 ```
 
 </LanguageContent>
@@ -464,16 +465,16 @@ FAILED (failures=1)
 <TabItem label="Selenium">
 
 ```typescript title="search.test.ts" ins={21}
-import { Builder, Browser } from 'selenium-webdriver';
-import { Alumni } from 'alumnium';
+import { Builder, Browser } from "selenium-webdriver";
+import { Alumni } from "alumnium";
 
-describe('TestSearch', () => {
+describe("TestSearch", () => {
   let driver;
   let al;
 
   beforeEach(async () => {
     driver = await new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://duckduckgo.com');
+    await driver.get("https://duckduckgo.com");
     al = new Alumni(driver);
   });
 
@@ -481,7 +482,7 @@ describe('TestSearch', () => {
     await driver?.quit();
   });
 
-  it('should search', async () => {
+  it("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Alumnium word");
   });
@@ -492,22 +493,22 @@ describe('TestSearch', () => {
 <TabItem label="Playwright">
 
 ```typescript title="search.test.ts" ins={19}
-import { test } from '@playwright/test';
-import { chromium } from 'playwright';
-import { Alumni } from 'alumnium';
+import { test } from "@playwright/test";
+import { chromium } from "playwright";
+import { Alumni } from "alumnium";
 
-test.describe('TestSearch', () => {
+test.describe("TestSearch", () => {
   let page;
   let al;
 
   test.beforeEach(async () => {
     const browser = await chromium.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('https://duckduckgo.com');
+    await page.goto("https://duckduckgo.com");
     al = new Alumni(page);
   });
 
-  test('should search', async () => {
+  test("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Alumnium word");
   });
@@ -528,14 +529,14 @@ $ npm test
 
 Our test failed as we expected and provided a meaningful explanation of what went wrong.
 
-Let's fix the first check and add another one, expecting it to fail again:
+Let's fix the first check and add another one to fail again:
 
 <LanguageContent lang="python">
 
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="search_test.py" del={14} ins={15-16}
+```python title="test_search.py" del={14} ins={15-16}
 import unittest
 from alumnium import Alumni
 from selenium.webdriver import Chrome
@@ -557,23 +558,23 @@ class TestSearch(unittest.TestCase):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="search_test.py" del={14} ins={15-16}
-import unittest
+```python title="test_search.py" del={14} ins={15-16}
 from alumnium import Alumni
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Page
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        page = sync_playwright().start().chromium.launch(headless=False).new_page()
-        page.goto("https://duckduckgo.com")
-        self.al = Alumni(page)
+@fixture
+def al(page: Page):
+    return Alumni(page)
 
-    def test_search(self):
-        self.al.do("search for 'Mercury element'")
-        self.al.check("page title contains Alumnium word")
-        self.al.check("page title contains Mercury word")
-        self.al.check("search results do not contain Wikipedia articles")
+
+def test_search(al: Alumni, page: Page):
+    page.goto("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Alumnium word")
+    al.check("page title contains Mercury word")
+    al.check("search results do not contain Wikipedia articles")
 ```
 
 </TabItem>
@@ -581,24 +582,13 @@ class TestSearch(unittest.TestCase):
 
 Time to re-run the test:
 
-```bash title="Running test..." wrap {12}
-$ python -m unittest search_test.py
+```bash title="Running test..." wrap {4}
+$ pytest --quiet
 F
-======================================================================
-FAIL: test_search (test.TestSearch.test_search)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/alumnium/search_test.py", line 15, in test_search
-    self.al.check("search results do not contain Wikipedia article")
-  File "/alumnium/alumnium/alumni.py", line 90, in check
-    assert result.value, result.explanation
-           ^^^^^^^^^^^^
-AssertionError: The ARIA tree contains multiple links to Wikipedia articles related to the Mercury element, indicating that the search results do include Wikipedia articles.
-
-----------------------------------------------------------------------
-Ran 1 test in 10.201s
-
-FAILED (failures=1)
+...
+E       AssertionError: The search results do contain links to Wikipedia articles, specifically mentioning 'Mercury (element) - Wikipedia' and providing a link to the Wikipedia page for Mercury. Therefore, the statement is false.
+...
+1 failed in 37.28s
 ```
 
 </LanguageContent>
@@ -609,16 +599,16 @@ FAILED (failures=1)
 <TabItem label="Selenium">
 
 ```typescript title="search.test.ts" del={21} ins={22-23}
-import { Builder, Browser } from 'selenium-webdriver';
-import { Alumni } from 'alumnium';
+import { Builder, Browser } from "selenium-webdriver";
+import { Alumni } from "alumnium";
 
-describe('TestSearch', () => {
+describe("TestSearch", () => {
   let driver;
   let al;
 
   beforeEach(async () => {
     driver = await new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://duckduckgo.com');
+    await driver.get("https://duckduckgo.com");
     al = new Alumni(driver);
   });
 
@@ -626,7 +616,7 @@ describe('TestSearch', () => {
     await driver?.quit();
   });
 
-  it('should search', async () => {
+  it("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Alumnium word");
     await al.check("page title contains Mercury word");
@@ -639,22 +629,22 @@ describe('TestSearch', () => {
 <TabItem label="Playwright">
 
 ```typescript title="search.test.ts" del={19} ins={20-21}
-import { test } from '@playwright/test';
-import { chromium } from 'playwright';
-import { Alumni } from 'alumnium';
+import { test } from "@playwright/test";
+import { chromium } from "playwright";
+import { Alumni } from "alumnium";
 
-test.describe('TestSearch', () => {
+test.describe("TestSearch", () => {
   let page;
   let al;
 
   test.beforeEach(async () => {
     const browser = await chromium.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('https://duckduckgo.com');
+    await page.goto("https://duckduckgo.com");
     al = new Alumni(page);
   });
 
-  test('should search', async () => {
+  test("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Alumnium word");
     await al.check("page title contains Mercury word");
@@ -682,7 +672,7 @@ Ok, the test failed as we wanted it to, let's fix it:
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="search_test.py" del={15} ins={16}
+```python title="test_search.py" del={15} ins={16}
 import unittest
 from alumnium import Alumni
 from selenium.webdriver import Chrome
@@ -704,23 +694,23 @@ class TestSearch(unittest.TestCase):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="search_test.py" del={15} ins={16}
-import unittest
+```python title="test_search.py" del={15} ins={16}
 from alumnium import Alumni
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Page
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        page = sync_playwright().start().chromium.launch(headless=False).new_page()
-        page.goto("https://duckduckgo.com")
-        self.al = Alumni(page)
+@fixture
+def al(page: Page):
+    return Alumni(page)
 
-    def test_search(self):
-        self.al.do("search for 'Mercury element'")
-        self.al.check("page title contains Mercury word")
-        self.al.check("search results do not contain Wikipedia articles")
-        self.al.check("search results contain Wikipedia article")
+
+def test_search(al: Alumni, page: Page):
+    page.goto("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Mercury word")
+    al.check("search results do not contain Wikipedia articles")
+    al.check("search results contain Wikipedia articles")
 ```
 
 </TabItem>
@@ -729,12 +719,9 @@ class TestSearch(unittest.TestCase):
 Now, re-run to make sure it passes:
 
 ```bash title="Running test"
-$ python -m unittest search_test.py
-.
-----------------------------------------------------------------------
-Ran 1 test in 14.088s
-
-OK
+$ pytest --quiet
+...
+1 passed in 38.24s
 ```
 
 </LanguageContent>
@@ -745,16 +732,16 @@ OK
 <TabItem label="Selenium">
 
 ```typescript title="search.test.ts" del={23} ins={24}
-import { Builder, Browser } from 'selenium-webdriver';
-import { Alumni } from 'alumnium';
+import { Builder, Browser } from "selenium-webdriver";
+import { Alumni } from "alumnium";
 
-describe('TestSearch', () => {
+describe("TestSearch", () => {
   let driver;
   let al;
 
   beforeEach(async () => {
     driver = await new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://duckduckgo.com');
+    await driver.get("https://duckduckgo.com");
     al = new Alumni(driver);
   });
 
@@ -762,7 +749,7 @@ describe('TestSearch', () => {
     await driver?.quit();
   });
 
-  it('should search', async () => {
+  it("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Mercury word");
     await al.check("search results do not contain Wikipedia articles");
@@ -775,22 +762,22 @@ describe('TestSearch', () => {
 <TabItem label="Playwright">
 
 ```typescript title="search.test.ts" del={21} ins={22}
-import { test } from '@playwright/test';
-import { chromium } from 'playwright';
-import { Alumni } from 'alumnium';
+import { test } from "@playwright/test";
+import { chromium } from "playwright";
+import { Alumni } from "alumnium";
 
-test.describe('TestSearch', () => {
+test.describe("TestSearch", () => {
   let page;
   let al;
 
   test.beforeEach(async () => {
     const browser = await chromium.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('https://duckduckgo.com');
+    await page.goto("https://duckduckgo.com");
     al = new Alumni(page);
   });
 
-  test('should search', async () => {
+  test("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Mercury word");
     await al.check("search results do not contain Wikipedia articles");
@@ -821,7 +808,7 @@ Let's add a failing verification first:
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="search_test.py" ins={16,17}
+```python title="test_search.py" ins={16,17}
 import unittest
 from alumnium import Alumni
 from selenium.webdriver import Chrome
@@ -844,24 +831,24 @@ class TestSearch(unittest.TestCase):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="search_test.py" ins={16,17}
-import unittest
+```python title="test_search.py" ins={16,17}
 from alumnium import Alumni
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Page
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        page = sync_playwright().start().chromium.launch(headless=False).new_page()
-        page.goto("https://duckduckgo.com")
-        self.al = Alumni(page)
+@fixture
+def al(page: Page):
+    return Alumni(page)
 
-    def test_search(self):
-        self.al.do("search for 'Mercury element'")
-        self.al.check("page title contains Mercury word")
-        self.al.check("search results contain Wikipedia article")
-        symbol = self.al.get("chemical symbol")
-        self.assertEqual(symbol, "Al")
+
+def test_search(al: Alumni, page: Page):
+    page.goto("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Mercury word")
+    al.check("search results contain Wikipedia articles")
+    symbol = al.get("chemical symbol")
+    assert symbol == "Al"
 ```
 
 </TabItem>
@@ -870,23 +857,14 @@ class TestSearch(unittest.TestCase):
 Time to re-run the test:
 
 ```bash title="Running test"
-$ python -m unittest search_test.py
-F
-======================================================================
-FAIL: test_search (test.TestSearch.test_search)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/alumnium/search_test.py", line 17, in test_search
-    self.assertEqual(symbol, "Al")
-AssertionError: 'Hg' != 'Al'
-- Hg
-+ Al
-
-
-----------------------------------------------------------------------
-Ran 1 test in 14.394s
-
-FAILED (failures=1)
+$ pytest --quiet
+...
+E       AssertionError: assert 'Hg' == 'Al'
+E
+E         - Al
+E         + Hg
+...
+1 failed in 49.14s
 ```
 
 </LanguageContent>
@@ -897,16 +875,16 @@ FAILED (failures=1)
 <TabItem label="Selenium">
 
 ```typescript title="search.test.ts" ins={24-25}
-import { Builder, Browser } from 'selenium-webdriver';
-import { Alumni } from 'alumnium';
+import { Builder, Browser } from "selenium-webdriver";
+import { Alumni } from "alumnium";
 
-describe('TestSearch', () => {
+describe("TestSearch", () => {
   let driver;
   let al;
 
   beforeEach(async () => {
     driver = await new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://duckduckgo.com');
+    await driver.get("https://duckduckgo.com");
     al = new Alumni(driver);
   });
 
@@ -914,7 +892,7 @@ describe('TestSearch', () => {
     await driver?.quit();
   });
 
-  it('should search', async () => {
+  it("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Mercury word");
     await al.check("search results contain Wikipedia article");
@@ -928,22 +906,22 @@ describe('TestSearch', () => {
 <TabItem label="Playwright">
 
 ```typescript title="search.test.ts" ins={22-23}
-import { test, expect } from '@playwright/test';
-import { chromium } from 'playwright';
-import { Alumni } from 'alumnium';
+import { test } from "@playwright/test";
+import { chromium } from "playwright";
+import { Alumni } from "alumnium";
 
-test.describe('TestSearch', () => {
+test.describe("TestSearch", () => {
   let page;
   let al;
 
   test.beforeEach(async () => {
     const browser = await chromium.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('https://duckduckgo.com');
+    await page.goto("https://duckduckgo.com");
     al = new Alumni(page);
   });
 
-  test('should search', async () => {
+  test("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Mercury word");
     await al.check("search results contain Wikipedia article");
@@ -972,7 +950,7 @@ The test failed as expected, let's fix it and re-run to make sure it's passing:
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="search_test.py" del={17} ins={18}
+```python title="test_search.py" del={17} ins={18}
 import unittest
 from alumnium import Alumni
 from selenium.webdriver import Chrome
@@ -996,37 +974,34 @@ class TestSearch(unittest.TestCase):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="search_test.py" del={17} ins={18}
-import unittest
+```python title="test_search.py" del={17} ins={18}
 from alumnium import Alumni
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Page
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        page = sync_playwright().start().chromium.launch(headless=False).new_page()
-        page.goto("https://duckduckgo.com")
-        self.al = Alumni(page)
+@fixture
+def al(page: Page):
+    return Alumni(page)
 
-    def test_search(self):
-        self.al.do("search for 'Mercury element'")
-        self.al.check("page title contains Mercury word")
-        self.al.check("search results contain Wikipedia article")
-        symbol = self.al.get("chemical symbol")
-        self.assertEqual(symbol, "Al")
-        self.assertEqual(symbol, "Hg")
+
+def test_search(al: Alumni, page: Page):
+    page.goto("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Mercury word")
+    al.check("search results contain Wikipedia articles")
+    symbol = al.get("chemical symbol")
+    assert symbol == "Al"
+    assert symbol == "Hg"
 ```
 
 </TabItem>
 </Tabs>
 
 ```bash title="Running test"
-$ python -m unittest search_test.py
-.
-----------------------------------------------------------------------
-Ran 1 test in 15.162s
-
-OK
+$ pytest --quiet
+...
+1 passed in 64.50s (0:01:04)
 ```
 
 </LanguageContent>
@@ -1037,16 +1012,16 @@ OK
 <TabItem label="Selenium">
 
 ```typescript title="search.test.ts" del={25} ins={26}
-import { Builder, Browser } from 'selenium-webdriver';
-import { Alumni } from 'alumnium';
+import { Builder, Browser } from "selenium-webdriver";
+import { Alumni } from "alumnium";
 
-describe('TestSearch', () => {
+describe("TestSearch", () => {
   let driver;
   let al;
 
   beforeEach(async () => {
     driver = await new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://duckduckgo.com');
+    await driver.get("https://duckduckgo.com");
     al = new Alumni(driver);
   });
 
@@ -1054,7 +1029,7 @@ describe('TestSearch', () => {
     await driver?.quit();
   });
 
-  it('should search', async () => {
+  it("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Mercury word");
     await al.check("search results contain Wikipedia article");
@@ -1069,22 +1044,22 @@ describe('TestSearch', () => {
 <TabItem label="Playwright">
 
 ```typescript title="search.test.ts" del={23} ins={24}
-import { test, expect } from '@playwright/test';
-import { chromium } from 'playwright';
-import { Alumni } from 'alumnium';
+import { test } from "@playwright/test";
+import { chromium } from "playwright";
+import { Alumni } from "alumnium";
 
-test.describe('TestSearch', () => {
+test.describe("TestSearch", () => {
   let page;
   let al;
 
   test.beforeEach(async () => {
     const browser = await chromium.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('https://duckduckgo.com');
+    await page.goto("https://duckduckgo.com");
     al = new Alumni(page);
   });
 
-  test('should search', async () => {
+  test("should search", async () => {
     await al.do("search for 'Mercury element'");
     await al.check("page title contains Mercury word");
     await al.check("search results contain Wikipedia article");
@@ -1107,3 +1082,4 @@ $ npm test
 Congratulations, we have completed our first test!
 
 [1]: /docs/getting-started/configuration
+[2]: https://pytest.org

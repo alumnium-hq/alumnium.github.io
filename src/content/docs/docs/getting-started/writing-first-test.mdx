@@ -187,7 +187,7 @@ def test_search(al: Alumni, driver: Chrome):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="test_search.py" ins={1, 3, 6-8} ins="al: Alumni"
+```python title="test_search.py" ins={1, 3, 6-10} ins="al: Alumni"
 from alumnium import Alumni
 from playwright.sync_api import Page
 from pytest import fixture
@@ -195,7 +195,10 @@ from pytest import fixture
 
 @fixture
 def al(page: Page):
-    return Alumni(page)
+    al = Alumni(page)
+    yield al
+    al.quit()
+
 
 def test_search(al: Alumni, page: Page):
     page.goto("https://duckduckgo.com")
@@ -320,7 +323,7 @@ def test_search(al: Alumni, driver: Chrome):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="test_search.py" ins={13}
+```python title="test_search.py" ins={15}
 from alumnium import Alumni
 from playwright.sync_api import Page
 from pytest import fixture
@@ -328,7 +331,9 @@ from pytest import fixture
 
 @fixture
 def al(page: Page):
-    return Alumni(page)
+    al = Alumni(page)
+    yield al
+    al.quit()
 
 
 def test_search(al: Alumni, page: Page):
@@ -454,7 +459,7 @@ def test_search(al: Alumni, driver: Chrome):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="test_search.py" ins={14}
+```python title="test_search.py" ins={16}
 from alumnium import Alumni
 from playwright.sync_api import Page
 from pytest import fixture
@@ -462,7 +467,9 @@ from pytest import fixture
 
 @fixture
 def al(page: Page):
-    return Alumni(page)
+    al = Alumni(page)
+    yield al
+    al.quit()
 
 
 def test_search(al: Alumni, page: Page):
@@ -595,7 +602,7 @@ def test_search(al: Alumni, driver: Chrome):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="test_search.py" del={14} ins={15-16}
+```python title="test_search.py" del={16} ins={17-18}
 from alumnium import Alumni
 from playwright.sync_api import Page
 from pytest import fixture
@@ -603,7 +610,9 @@ from pytest import fixture
 
 @fixture
 def al(page: Page):
-    return Alumni(page)
+    al = Alumni(page)
+    yield al
+    al.quit()
 
 
 def test_search(al: Alumni, page: Page):
@@ -740,7 +749,7 @@ def test_search(al: Alumni, driver: Chrome):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="test_search.py" del={15} ins={16}
+```python title="test_search.py" del={17} ins={18}
 from alumnium import Alumni
 from playwright.sync_api import Page
 from pytest import fixture
@@ -748,7 +757,9 @@ from pytest import fixture
 
 @fixture
 def al(page: Page):
-    return Alumni(page)
+    al = Alumni(page)
+    yield al
+    al.quit()
 
 
 def test_search(al: Alumni, page: Page):
@@ -886,7 +897,7 @@ def test_search(al: Alumni, driver: Chrome):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="test_search.py" ins={16,17}
+```python title="test_search.py" ins={18,19}
 from alumnium import Alumni
 from playwright.sync_api import Page
 from pytest import fixture
@@ -894,7 +905,9 @@ from pytest import fixture
 
 @fixture
 def al(page: Page):
-    return Alumni(page)
+    al = Alumni(page)
+    yield al
+    al.quit()
 
 
 def test_search(al: Alumni, page: Page):
@@ -1038,7 +1051,7 @@ def test_search(al: Alumni, driver: Chrome):
 </TabItem>
 <TabItem label="Playwright">
 
-```python title="test_search.py" del={17} ins={18}
+```python title="test_search.py" del={19} ins={20}
 from alumnium import Alumni
 from playwright.sync_api import Page
 from pytest import fixture
@@ -1046,7 +1059,9 @@ from pytest import fixture
 
 @fixture
 def al(page: Page):
-    return Alumni(page)
+    al = Alumni(page)
+    yield al
+    al.quit()
 
 
 def test_search(al: Alumni, page: Page):

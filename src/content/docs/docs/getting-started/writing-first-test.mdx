@@ -22,7 +22,7 @@ Make sure you have Alumnium and either Selenium or Playwright installed in your 
 <TabItem label="Selenium">
 
 ```bash title="Installing dependencies..."
-$ pip install alumnium selenium
+$ pip install alumnium pytest
 ```
 
 </TabItem>
@@ -48,17 +48,19 @@ Start by creating a test file for your tests and instantiating a browser instanc
 <TabItem label="Selenium">
 
 ```python title="test_search.py"
-import unittest
 from selenium.webdriver import Chrome
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        driver = Chrome()
-        driver.get("https://duckduckgo.com")
+@fixture
+def driver():
+    driver = Chrome()
+    yield driver
+    driver.quit()
 
-    def test_search(self):
-        pass
+
+def test_search(driver: Chrome):
+    driver.get("https://duckduckgo.com")
 ```
 
 </TabItem>
@@ -157,20 +159,29 @@ Now let's add the code that would instantiate Alumnium using the browser:
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="test_search.py" ins={2, 10}
-import unittest
+```python title="test_search.py" ins={1, 13-17} ins="al: Alumni"
 from alumnium import Alumni
 from selenium.webdriver import Chrome
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        driver = Chrome()
-        driver.get("https://duckduckgo.com")
-        self.al = Alumni(driver)
+@fixture
+def driver():
+    driver = Chrome()
+    yield driver
+    driver.quit()
 
-    def test_search(self):
-        pass
+
+@fixture
+def al(driver: Chrome):
+    al = Alumni(driver)
+    yield al
+    al.quit()
+
+
+def test_search(al: Alumni, driver: Chrome):
+    driver.get("https://duckduckgo.com")
+
 ```
 
 </TabItem>
@@ -281,21 +292,29 @@ Now let's add some actions that Alumnium should **do** on the page. Our test nee
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="test_search.py" del={13} ins={14}
-import unittest
+```python title="test_search.py" ins={22}
 from alumnium import Alumni
 from selenium.webdriver import Chrome
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        driver = Chrome()
-        driver.get("https://duckduckgo.com")
-        self.al = Alumni(driver)
+@fixture
+def driver():
+    driver = Chrome()
+    yield driver
+    driver.quit()
 
-    def test_search(self):
-        pass
-        self.al.do("search for 'Mercury element'")
+
+@fixture
+def al(driver: Chrome):
+    al = Alumni(driver)
+    yield al
+    al.quit()
+
+
+def test_search(al: Alumni, driver: Chrome):
+    driver.get("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
 ```
 
 </TabItem>
@@ -406,21 +425,30 @@ Common wisdom says to _never trust a test you haven't seen fail_. Let's add the 
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="test_search.py" ins={14}
-import unittest
+```python title="test_search.py" ins={23}
 from alumnium import Alumni
 from selenium.webdriver import Chrome
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        driver = Chrome()
-        driver.get("https://duckduckgo.com")
-        self.al = Alumni(driver)
+@fixture
+def driver():
+    driver = Chrome()
+    yield driver
+    driver.quit()
 
-    def test_search(self):
-        self.al.do("search for 'Mercury element'")
-        self.al.check("page title contains Alumnium word")
+
+@fixture
+def al(driver: Chrome):
+    al = Alumni(driver)
+    yield al
+    al.quit()
+
+
+def test_search(al: Alumni, driver: Chrome):
+    driver.get("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Aluminium word")
 ```
 
 </TabItem>
@@ -440,7 +468,7 @@ def al(page: Page):
 def test_search(al: Alumni, page: Page):
     page.goto("https://duckduckgo.com")
     al.do("search for 'Mercury element' and press Enter")
-    al.check("page title contains Alumnium word")
+    al.check("page title contains Aluminium word")
 ```
 
 </TabItem>
@@ -484,7 +512,7 @@ describe("TestSearch", () => {
 
   it("should search", async () => {
     await al.do("search for 'Mercury element'");
-    await al.check("page title contains Alumnium word");
+    await al.check("page title contains Aluminium word");
   });
 });
 ```
@@ -510,7 +538,7 @@ test.describe("TestSearch", () => {
 
   test("should search", async () => {
     await al.do("search for 'Mercury element'");
-    await al.check("page title contains Alumnium word");
+    await al.check("page title contains Aluminium word");
   });
 });
 ```
@@ -536,23 +564,32 @@ Let's fix the first check and add another one to fail again:
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="test_search.py" del={14} ins={15-16}
-import unittest
+```python title="test_search.py" del={23} ins={24-25}
 from alumnium import Alumni
 from selenium.webdriver import Chrome
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        driver = Chrome()
-        driver.get("https://duckduckgo.com")
-        self.al = Alumni(driver)
+@fixture
+def driver():
+    driver = Chrome()
+    yield driver
+    driver.quit()
 
-    def test_search(self):
-        self.al.do("search for 'Mercury element'")
-        self.al.check("page title contains Alumnium word")
-        self.al.check("page title contains Mercury word")
-        self.al.check("search results do not contain Wikipedia articles")
+
+@fixture
+def al(driver: Chrome):
+    al = Alumni(driver)
+    yield al
+    al.quit()
+
+
+def test_search(al: Alumni, driver: Chrome):
+    driver.get("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Aluminium word")
+    al.check("page title contains Mercury word")
+    al.check("search results do not contain Wikipedia articles")
 ```
 
 </TabItem>
@@ -572,7 +609,7 @@ def al(page: Page):
 def test_search(al: Alumni, page: Page):
     page.goto("https://duckduckgo.com")
     al.do("search for 'Mercury element' and press Enter")
-    al.check("page title contains Alumnium word")
+    al.check("page title contains Aluminium word")
     al.check("page title contains Mercury word")
     al.check("search results do not contain Wikipedia articles")
 ```
@@ -618,7 +655,7 @@ describe("TestSearch", () => {
 
   it("should search", async () => {
     await al.do("search for 'Mercury element'");
-    await al.check("page title contains Alumnium word");
+    await al.check("page title contains Aluminium word");
     await al.check("page title contains Mercury word");
     await al.check("search results do not contain Wikipedia articles");
   });
@@ -646,7 +683,7 @@ test.describe("TestSearch", () => {
 
   test("should search", async () => {
     await al.do("search for 'Mercury element'");
-    await al.check("page title contains Alumnium word");
+    await al.check("page title contains Aluminium word");
     await al.check("page title contains Mercury word");
     await al.check("search results do not contain Wikipedia articles");
   });
@@ -672,23 +709,32 @@ Ok, the test failed as we wanted it to, let's fix it:
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="test_search.py" del={15} ins={16}
-import unittest
+```python title="test_search.py" del={24} ins={25}
 from alumnium import Alumni
 from selenium.webdriver import Chrome
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        driver = Chrome()
-        driver.get("https://duckduckgo.com")
-        self.al = Alumni(driver)
+@fixture
+def driver():
+    driver = Chrome()
+    yield driver
+    driver.quit()
 
-    def test_search(self):
-        self.al.do("search for Mercury element")
-        self.al.check("page title contains Mercury word")
-        self.al.check("search results do not contain Wikipedia articles")
-        self.al.check("search results contain Wikipedia article")
+
+@fixture
+def al(driver: Chrome):
+    al = Alumni(driver)
+    yield al
+    al.quit()
+
+
+def test_search(al: Alumni, driver: Chrome):
+    driver.get("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Mercury word")
+    al.check("search results do not contain Wikipedia articles")
+    al.check("search results contain Wikipedia articles")
 ```
 
 </TabItem>
@@ -808,24 +854,33 @@ Let's add a failing verification first:
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="test_search.py" ins={16,17}
-import unittest
+```python title="test_search.py" ins={25-27}
 from alumnium import Alumni
 from selenium.webdriver import Chrome
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        driver = Chrome()
-        driver.get("https://duckduckgo.com")
-        self.al = Alumni(driver)
+@fixture
+def driver():
+    driver = Chrome()
+    yield driver
+    driver.quit()
 
-    def test_search(self):
-        self.al.do("search for 'Mercury element'")
-        self.al.check("page title contains Mercury word")
-        self.al.check("search results contain Wikipedia article")
-        symbol = self.al.get("chemical symbol")
-        self.assertEqual(symbol, "Al")
+
+@fixture
+def al(driver: Chrome):
+    al = Alumni(driver)
+    yield al
+    al.quit()
+
+
+def test_search(al: Alumni, driver: Chrome):
+    driver.get("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Mercury word")
+    al.check("search results contain Wikipedia articles")
+    symbol = al.get("chemical symbol")
+    assert symbol == "Al"
 ```
 
 </TabItem>
@@ -950,25 +1005,34 @@ The test failed as expected, let's fix it and re-run to make sure it's passing:
 <Tabs syncKey="driver">
 <TabItem label="Selenium">
 
-```python title="test_search.py" del={17} ins={18}
-import unittest
+```python title="test_search.py" del={26} ins={27}
 from alumnium import Alumni
 from selenium.webdriver import Chrome
+from pytest import fixture
 
 
-class TestSearch(unittest.TestCase):
-    def setUp(self):
-        driver = Chrome()
-        driver.get("https://duckduckgo.com")
-        self.al = Alumni(driver)
+@fixture
+def driver():
+    driver = Chrome()
+    yield driver
+    driver.quit()
 
-    def test_search(self):
-        self.al.do("search for 'Mercury element'")
-        self.al.check("page title contains Mercury word")
-        self.al.check("search results contain Wikipedia article")
-        symbol = self.al.get("chemical symbol")
-        self.assertEqual(symbol, "Al")
-        self.assertEqual(symbol, "Hg")
+
+@fixture
+def al(driver: Chrome):
+    al = Alumni(driver)
+    yield al
+    al.quit()
+
+
+def test_search(al: Alumni, driver: Chrome):
+    driver.get("https://duckduckgo.com")
+    al.do("search for 'Mercury element' and press Enter")
+    al.check("page title contains Mercury word")
+    al.check("search results contain Wikipedia articles")
+    symbol = al.get("chemical symbol")
+    assert symbol == "Al"
+    assert symbol == "Hg"
 ```
 
 </TabItem>

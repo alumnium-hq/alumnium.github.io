@@ -141,7 +141,7 @@ $ docker run --rm --detach \
 
 </LanguageContent>
 
-Now let's add the code that would instantiate Alumnium using the browser:
+Now let’s add the code that would instantiate Alumnium using the browser. We can use a test fixture to ensure proper setup and teardown of the Alumnium instance:
 
 <LanguageContent lang="python">
 
@@ -603,7 +603,7 @@ def test_search(al: Alumni, driver: Chrome):
 
 Time to re-run the test:
 
-```bash title="Running test"
+```bash title="Running test" {3-6}
 $ pytest --quiet
 ...
 E       AssertionError: assert 'Hg' == 'Al'
@@ -650,7 +650,7 @@ describe("TestSearch", () => {
 
 Time to re-run the test:
 
-```bash title="Running test"
+```bash title="Running test" {3-7}
 $ npx mocha
 ...
       AssertionError [ERR_ASSERTION]: 'Hg' == 'Al'

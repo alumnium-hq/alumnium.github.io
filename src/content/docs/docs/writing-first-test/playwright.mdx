@@ -8,13 +8,9 @@ import LanguageContent from "../../../../components/LanguageContent.astro";
 
 Let's see how we can write a simple test that would use Playwright to open DuckDuckGo, search for a Mercury element, ensure that search results are loaded, include the Wikipedia article about the element, and check that its symbol is presented correctly on the page.
 
-:::note
-Alumnium can be used with any test runner you like. For the examples in this guide, we'll use a default Playwright test runner.
-:::
-
 ## Install Dependencies
 
-Make sure you have Alumnium in your project.
+Make sure you have Alumnium installed in your project.
 
 <LanguageContent lang="python">
 
@@ -28,8 +24,14 @@ $ playwright install chromium
 <LanguageContent lang="typescript">
 
 ```bash title="Installing dependencies"
-$ npm install alumnium mocha
-$ npm install ts-node @types/mocha @types/selenium-webdriver  # for TypeScript
+$ npm install alumnium
+```
+
+Now initialize Playwright in your project if you haven't done it yet. Leave all the options as default and remove example test after initialization.
+
+```bash title="Initializing Playwright"
+$ npm init playwright
+$ rm tests/example.spec.ts
 ```
 
 We'll also need to install Docker to run the Alumnium server. Please, refer to [Docker installation guide][4] for your platform.
@@ -62,37 +64,21 @@ $ pytest --quiet --headed
 
 <LanguageContent lang="typescript">
 
-```typescript title="search.test.ts"
-import { strict as assert } from "assert";
-import { Builder, Browser, type WebDriver } from "selenium-webdriver";
+```typescript title="tests/search.spec.ts"
+import { test, expect } from "@playwright/test";
 
-describe("TestSearch", () => {
-  let driver: WebDriver;
-
-  before(async () => {
-    driver = await new Builder().forBrowser(Browser.CHROME).build();
-  });
-
-  after(async () => {
-    await driver.quit();
-  });
-
-  it("should search", async () => {
-    await driver.get("https://duckduckgo.com");
-  });
+test("should search", async ({ page }) => {
+  await page.goto("https://duckduckgo.com");
 });
 ```
 
 Now run the test. You should see a Chrome browser window with DuckDuckGo opened.
 
 ```bash title="Running test"
-$ npx mocha
+$ npx playwright test --project chromium --headed
 
-  TestSearch
-    ✔ should search (791ms)
-
-
-  1 passing (3s)
+Running 1 test using 1 worker
+  1 passed (4.0s)
 ```
 
 </LanguageContent>
@@ -112,7 +98,7 @@ $ docker run --rm --detach \
 
 </LanguageContent>
 
-Now let's add the code that would instantiate Alumnium using the browser:
+Now let's add the code that would instantiate Alumnium using the browser. We can use a test fixture to ensure proper setup and teardown of the Alumnium instance:
 
 <LanguageContent lang="python">
 
@@ -145,41 +131,37 @@ $ pytest --quiet --headed
 
 <LanguageContent lang="typescript">
 
-```typescript title="search.test.ts" ins={2, 7, 11, 16}
-import { strict as assert } from "assert";
+```typescript title="tests/index.ts"
+import { test as base } from "@playwright/test";
 import { Alumni } from "alumnium";
-import { Builder, Browser, type WebDriver } from "selenium-webdriver";
 
-describe("TestSearch", () => {
-  let driver: WebDriver;
-  let al: Alumni;
-
-  before(async () => {
-    driver = await new Builder().forBrowser(Browser.CHROME).build();
-    al = new Alumni(driver);
-  });
-
-  after(async () => {
-    await driver.quit();
+export const test = base.extend<{ al: Alumni }>({
+  al: async ({ page }, use) => {
+    const al = new Alumni(page);
+    await use(al);
     await al.quit();
-  });
+  },
+});
 
-  it("should search", async () => {
-    await driver.get("https://duckduckgo.com");
-  });
+export { expect } from "@playwright/test";
+```
+
+```typescript title="tests/search.spec.ts" del={1} ins={2} ins="al"
+import { test, expect } from "@playwright/test";
+import { test, expect } from ".";
+
+test("should search", async ({ page, al }) => {
+  await page.goto("https://duckduckgo.com");
 });
 ```
 
 The test should still work fine, let's re-run it to make sure:
 
 ```bash title="Running test"
-$ npx mocha
+$ npx playwright test --project chromium --headed
 
-  TestSearch
-    ✔ should search (813ms)
-
-
-  1 passing (3s)
+Running 1 test using 1 worker
+  1 passed (8.2s)
 ```
 
 </LanguageContent>
@@ -224,42 +206,21 @@ $ pytest --quiet --headed
 
 <LanguageContent lang="typescript">
 
-```typescript title="search.test.ts" ins={21}
-import { strict as assert } from "assert";
-import { Alumni } from "alumnium";
-import { Builder, Browser, type WebDriver } from "selenium-webdriver";
+```typescript title="tests/search.spec.ts" ins={5}
+import { test, expect } from ".";
 
-describe("TestSearch", () => {
-  let driver: WebDriver;
-  let al: Alumni;
-
-  before(async () => {
-    driver = await new Builder().forBrowser(Browser.CHROME).build();
-    al = new Alumni(driver);
-  });
-
-  after(async () => {
-    await driver.quit();
-    await al.quit();
-  });
-
-  it("should search", async () => {
-    await driver.get("https://duckduckgo.com");
-    await al.do("search for 'Mercury element' and press Enter");
-  });
+test("should search", async ({ page, al }) => {
+  await page.goto("https://duckduckgo.com");
+  await al.do("search for 'Mercury element' and press Enter");
 });
 ```
 
 Run the test, you should now see "Mercury element" typed in the search box and the page with results loaded.
 
 ```bash title="Running test"
-$ npx mocha
-
-  TestSearch
-    ✔ should search (12680ms)
-
-
-1 passing (14s)
+$ npx playwright test --project chromium --headed
+...
+  1 passed (8.6s)
 ```
 
 </LanguageContent>
@@ -306,41 +267,24 @@ E       AssertionError: The requested information is whether the page title cont
 
 <LanguageContent lang="typescript">
 
-```typescript title="search.test.ts" ins={22}
-import { strict as assert } from "assert";
-import { Alumni } from "alumnium";
-import { Builder, Browser, type WebDriver } from "selenium-webdriver";
+```typescript title="tests/search.spec.ts" ins={6}
+import { test, expect } from ".";
 
-describe("TestSearch", () => {
-  let driver: WebDriver;
-  let al: Alumni;
-
-  before(async () => {
-    driver = await new Builder().forBrowser(Browser.CHROME).build();
-    al = new Alumni(driver);
-  });
-
-  after(async () => {
-    await driver.quit();
-    await al.quit();
-  });
-
-  it("should search", async () => {
-    await driver.get("https://duckduckgo.com");
-    await al.do("search for 'Mercury element' and press Enter");
-    await al.check("page title contains Aluminium word");
-  });
+test("should search", async ({ page, al }) => {
+  await page.goto("https://duckduckgo.com");
+  await al.do("search for 'Mercury element' and press Enter");
+  await al.check("page title contains Aluminium word");
 });
 ```
 
 Now let's run our test:
 
 ```bash title="Running test" wrap {3}
-$ npx mocha
+$ npx playwright test --project chromium --headed
 ...
-     AssertionError: The requested information is about whether the page title contains the word 'Aluminium'. The page title is 'Mercury element at DuckDuckGo', which does not include the word 'Aluminium'. Therefore, the statement is false.
+Error: The requested information is whether the page title contains the word 'Aluminium'. The page title is 'Mercury element at DuckDuckGo', which does not include 'Aluminium'. Therefore, the statement is false.
 ...
-  1 failing
+  1 failed
 ```
 
 </LanguageContent>
@@ -387,43 +331,26 @@ E       AssertionError: The search results do contain links to Wikipedia article
 
 <LanguageContent lang="typescript">
 
-```typescript title="search.test.ts" del={22} ins={23-24}
-import { strict as assert } from "assert";
-import { Alumni } from "alumnium";
-import { Builder, Browser, type WebDriver } from "selenium-webdriver";
+```typescript title="tests/search.spec.ts" del={6} ins={7-8}
+import { test, expect } from ".";
 
-describe("TestSearch", () => {
-  let driver: WebDriver;
-  let al: Alumni;
-
-  before(async () => {
-    driver = await new Builder().forBrowser(Browser.CHROME).build();
-    al = new Alumni(driver);
-  });
-
-  after(async () => {
-    await driver.quit();
-    await al.quit();
-  });
-
-  it("should search", async () => {
-    await driver.get("https://duckduckgo.com");
-    await al.do("search for 'Mercury element' and press Enter");
-    await al.check("page title contains Aluminium word");
-    await al.check("page title contains Mercury word");
-    await al.check("search results do not contain Wikipedia articles");
-  });
+test("should search", async ({ page, al }) => {
+  await page.goto("https://duckduckgo.com");
+  await al.do("search for 'Mercury element' and press Enter");
+  await al.check("page title contains Aluminium word");
+  await al.check("page title contains Mercury word");
+  await al.check("search results do not contain Wikipedia articles");
 });
 ```
 
 Time to re-run the test:
 
 ```bash title="Running test" wrap {3}
-$ npx mocha
+$ npx playwright test --project chromium --headed
 ...
-     AssertionError: The search results do contain Wikipedia articles, as indicated by the presence of links to Wikipedia in the accessibility tree. For example, there is a link with the text 'More at Wikipedia' and another link titled 'Mercury (element) - Wikipedia'. Therefore, the statement is false.
+Error: The search results do contain Wikipedia articles, as indicated by the presence of links to Wikipedia in the accessibility tree. For example, there is a link with the text 'Mercury (element) - Wikipedia' and another link labeled 'More at Wikipedia'. Therefore, the statement is false.
 ...
-  1 failing
+  1 failed
 ```
 
 </LanguageContent>
@@ -465,44 +392,24 @@ $ pytest --quiet --headed
 
 <LanguageContent lang="typescript">
 
-```typescript title="search.test.ts" del={23} ins={24}
-import { strict as assert } from "assert";
-import { Alumni } from "alumnium";
-import { Builder, Browser, type WebDriver } from "selenium-webdriver";
+```typescript title="tests/search.spec.ts" del={7} ins={8}
+import { test, expect } from ".";
 
-describe("TestSearch", () => {
-  let driver: WebDriver;
-  let al: Alumni;
-
-  before(async () => {
-    driver = await new Builder().forBrowser(Browser.CHROME).build();
-    al = new Alumni(driver);
-  });
-
-  after(async () => {
-    await driver.quit();
-    await al.quit();
-  });
-
-  it("should search", async () => {
-    await driver.get("https://duckduckgo.com");
-    await al.do("search for 'Mercury element' and press Enter");
-    await al.check("page title contains Mercury word");
-    await al.check("search results do not contain Wikipedia articles");
-    await al.check("search results contain Wikipedia articles");
-  });
+test("should search", async ({ page, al }) => {
+  await page.goto("https://duckduckgo.com");
+  await al.do("search for 'Mercury element' and press Enter");
+  await al.check("page title contains Mercury word");
+  await al.check("search results do not contain Wikipedia articles");
+  await al.check("search results contain Wikipedia articles");
+});
 ```
 
 Now, re-run to make sure it passes:
 
 ```bash title="Running test"
-$ npx mocha
-
-  TestSearch
-    ✔ should search (14233ms)
-
-
-  1 passing (17s)
+$ npx playwright test --project chromium --headed
+...
+  1 passed (14.7s)
 ```
 
 </LanguageContent>
@@ -539,7 +446,7 @@ def test_search(al: Alumni, page: Page):
 
 Time to re-run the test:
 
-```bash title="Running test"
+```bash title="Running test" {3-6}
 $ pytest --quiet --headed
 ...
 E       AssertionError: assert 'Hg' == 'Al'
@@ -554,47 +461,28 @@ E         + Hg
 
 <LanguageContent lang="typescript">
 
-```typescript title="search.test.ts" ins={24-25}
-import { strict as assert } from "assert";
-import { Alumni } from "alumnium";
-import { Builder, Browser, type WebDriver } from "selenium-webdriver";
+```typescript title="tests/search.spec.ts" ins={8-9}
+import { test, expect } from ".";
 
-describe("TestSearch", () => {
-  let driver: WebDriver;
-  let al: Alumni;
-
-  before(async () => {
-    driver = await new Builder().forBrowser(Browser.CHROME).build();
-    al = new Alumni(driver);
-  });
-
-  after(async () => {
-    await driver.quit();
-    await al.quit();
-  });
-
-  it("should search", async () => {
-    await driver.get("https://duckduckgo.com");
-    await al.do("search for 'Mercury element' and press Enter");
-    await al.check("page title contains Mercury word");
-    await al.check("search results contain Wikipedia articles");
-    const symbol = await al.get("chemical symbol");
-    assert.equal(symbol, "Al");
-  });
+test("should search", async ({ page, al }) => {
+  await page.goto("https://duckduckgo.com");
+  await al.do("search for 'Mercury element' and press Enter");
+  await al.check("page title contains Mercury word");
+  await al.check("search results contain Wikipedia articles");
+  const symbol = await al.get("chemical symbol");
+  expect(symbol).toBe("Al");
 });
 ```
 
 Time to re-run the test:
 
-```bash title="Running test"
-$ npx mocha
+```bash title="Running test" {3-4}
+$ npx playwright test --project chromium --headed
 ...
-      AssertionError [ERR_ASSERTION]: 'Hg' == 'Al'
-      + expected - actual
-
-      -Hg
-      +Al
+    Expected: "Al"
+    Received: "Hg"
 ...
+  1 failed
 ```
 
 </LanguageContent>
@@ -636,45 +524,25 @@ $ pytest --quiet --headed
 
 <LanguageContent lang="typescript">
 
-```typescript title="search.test.ts" del={25} ins={26}
-import { strict as assert } from "assert";
-import { Alumni } from "alumnium";
-import { Builder, Browser, type WebDriver } from "selenium-webdriver";
+```typescript title="tests/search.spec.ts" del={10} ins={11}
+import { test, expect } from ".";
 
-describe("TestSearch", () => {
-  let driver: WebDriver;
-  let al: Alumni;
-
-  before(async () => {
-    driver = await new Builder().forBrowser(Browser.CHROME).build();
-    al = new Alumni(driver);
-  });
-
-  after(async () => {
-    await driver.quit();
-    await al.quit();
-  });
-
-  it("should search", async () => {
-    await driver.get("https://duckduckgo.com");
-    await al.do("search for 'Mercury element' and press Enter");
-    await al.check("page title contains Mercury word");
-    await al.check("search results contain Wikipedia articles");
-    const symbol = await al.get("chemical symbol");
-    assert.equal(symbol, "Al");
-    assert.equal(symbol, "Hg");
-  });
+test("should search", async ({ page, al }) => {
+  await page.goto("https://duckduckgo.com");
+  await al.do("search for 'Mercury element' and press Enter");
+  await page.waitForTimeout(2000); // wait for results to load
+  await al.check("page title contains Mercury word");
+  await al.check("search results contain Wikipedia articles");
+  const symbol = await al.get("chemical symbol");
+  expect(symbol).toBe("Al");
+  expect(symbol).toBe("Hg");
 });
 ```
 
 ```bash title="Running test"
-$ npx mocha
-
-  TestSearch
-    ✔ should search (29270ms)
-
-
-  1 passing (32s)
+$ npx playwright test --project chromium --headed
+...
+  1 passed (19.5s)
 ```
 
 </LanguageContent>

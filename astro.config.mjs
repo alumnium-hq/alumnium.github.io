@@ -76,9 +76,18 @@ export default defineConfig({
               label: "Configuration",
               slug: "docs/getting-started/configuration",
             },
+          ],
+        },
+        {
+          label: "Writing First Test",
+          items: [
             {
-              label: "Writing First Test",
-              slug: "docs/getting-started/writing-first-test",
+              label: "Playwright",
+              slug: "docs/writing-first-test/playwright",
+            },
+            {
+              label: "Selenium",
+              slug: "docs/writing-first-test/selenium",
             },
           ],
         },

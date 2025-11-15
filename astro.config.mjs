@@ -82,6 +82,10 @@ export default defineConfig({
           label: "Writing First Test",
           items: [
             {
+              label: "Appium",
+              slug: "docs/writing-first-test/appium",
+            },
+            {
               label: "Playwright",
               slug: "docs/writing-first-test/playwright",
             },

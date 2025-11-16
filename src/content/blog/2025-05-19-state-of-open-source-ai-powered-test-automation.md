@@ -210,7 +210,6 @@ export default {
     provider: "anthropic"
   },
 } satisfies ShortestConfig;
-
 ```
 
 The code is hopefully self-explanatory. Now, let’s create the test itself:

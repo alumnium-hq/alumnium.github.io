@@ -530,7 +530,6 @@ import { test, expect } from ".";
 test("should search", async ({ page, al }) => {
   await page.goto("https://duckduckgo.com");
   await al.do("search for 'Mercury element' and press Enter");
-  await page.waitForTimeout(2000); // wait for results to load
   await al.check("page title contains Mercury word");
   await al.check("search results contain Wikipedia articles");
   const symbol = await al.get("chemical symbol");

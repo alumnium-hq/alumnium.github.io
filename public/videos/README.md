@@ -5,7 +5,6 @@ with ffmpeg to remove parts, add border, and speed up and prepare webm versions.
 ffmpeg -i input.mp4 -an -vf "select='not(between(t,2,5))',setpts=N/FRAME_RATE/TB,pad=width=iw+20:height=ih+20:x=10:y=10:color=1d2120,setpts=PTS/1.5" result.mp4
                              ⎩_________________________________________________⎭ ⎩_________________________________________________⎭ ⎩____________⎭
                                         REMOVE PART BETWEEN 2-5 SECS                             ADD 10PX GRAY BORDER                   SPEED UP
-
 ```
 
 Once completed, generate WebM versions:

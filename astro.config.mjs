@@ -143,4 +143,7 @@ export default defineConfig({
     sitemap({}),
   ],
   vite: { plugins: [tailwindcss()] },
+  redirects: {
+    "/docs/getting-started/writing-first-test": "docs/writing-first-test/selenium",
+  },
 });

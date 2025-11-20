@@ -15,7 +15,7 @@ Alumnium needs access to an AI model to work. The following models are supported
 | [Meta][8]               | Llama 4 Maverick 17B  |
 | [MistralAI][16]         | Mistral Medium 3      |
 | [Ollama][15]            | Mistral Small 3.1 24B |
-| [xAI][18]              | Grok 4 Fast           |
+| [xAI][18]               | Grok 4 Fast           |
 
 These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
 

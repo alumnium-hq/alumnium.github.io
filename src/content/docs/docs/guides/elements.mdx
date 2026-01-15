@@ -9,6 +9,8 @@ Sometimes you need direct access to elements instead of using Alumnium's autonom
 
 <LanguageContent lang="python">
 
+The returned element is a native driver element (Appium/Selenium `WebElement` or Playwright `Locator`), so you can use all standard methods from your testing framework.
+
 ```python
 submit_button = al.find("submit button")
 submit_button.click()
@@ -20,6 +22,8 @@ text_input.send_keys("Hello Alumnium!")
 </LanguageContent>
 
 <LanguageContent lang="typescript">
+
+The returned element is a native driver element (WebdriverIO `Element`, Selenium `WebElement`, or Playwright `Locator`), so you can use all standard methods from your testing framework.
 
 ```typescript
 import type { WebElement } from "selenium-webdriver";
@@ -33,8 +37,6 @@ await textInput.sendKeys("Hello Alumnium!");
 ```
 
 </LanguageContent>
-
-The returned element is a native driver element (Appium/Selenium `WebElement` or Playwright `Locator`), so you can use all standard methods from your testing framework.
 
 Use `find()` when you need to:
 

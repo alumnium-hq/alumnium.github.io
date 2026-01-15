@@ -126,6 +126,10 @@ export default defineConfig({
               label: "Self-hosting LLMs",
               slug: "docs/guides/self-hosting",
             },
+            {
+              label: "MCP",
+              slug: "docs/guides/mcp",
+            },
           ],
         },
         {

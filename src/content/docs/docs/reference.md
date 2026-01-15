@@ -60,17 +60,17 @@ Select AI provider and model to use.
 
 | Value         | LLM                                             | Notes                                                                    |
 | ------------- | ----------------------------------------------- | ------------------------------------------------------------------------ |
-| anthropic     | claude-haiku-4-5-20251001                       | Anthropic API.                                                           |
+| anthropic     | claude-haiku-4-5-20251001                       | Anthropic API with extended thinking.                                    |
 | azure_openai  | gpt-4o-mini                                     | Self-hosted Azure OpenAI API. Recommended model version is _2024-07-18_. |
-| aws_anthropic | us.anthropic.claude-haiku-4-5-20251001-v1:0 | Serverless Amazon Bedrock API.                                           |
+| aws_anthropic | us.anthropic.claude-haiku-4-5-20251001-v1:0     | Serverless Amazon Bedrock API.                                           |
 | aws_meta      | us.meta.llama4-maverick-17b-instruct-v1:0       | Serverless Amazon Bedrock API.                                           |
-| deepseek      | deepseek-chat                                   | DeepSeek Platform.                                                       |
+| deepseek      | deepseek-reasoner                               | DeepSeek Platform with reasoning capabilities.                           |
 | github        | gpt-4o-mini                                     | GitHub Models API.                                                       |
-| google        | gemini-2.0-flash-001                            | Google AI Studio API.                                                    |
+| google        | gemini-3-flash                                  | Google AI Studio API with reasoning support.                             |
 | mistralai     | mistral-medium-2505                             | Mistral AI Studio API.                                                   |
 | ollama        | mistral-small3.1:24b                            | Local model inference with Ollama.                                       |
-| openai        | gpt-4o-mini-2024-07-18                          | OpenAI API.                                                              |
-| xai           | grok-4-fast-non-reasoning                       | xAI API.                                                                 |
+| openai        | gpt-5-nano                                      | OpenAI API with reasoning capabilities.                                  |
+| xai           | grok-4-1-fast-reasoning                         | xAI API with enhanced reasoning.                                         |
 
 You can also override the LLM for each provider by passing it after `/`.
 
@@ -82,9 +82,18 @@ export ALUMNIUM_MODEL="openai/gpt-5"
 
 Sets the URL for Ollama models if you host them externally on a server.
 
+### `ALUMNIUM_PLAYWRIGHT_HEADLESS`
+
+Set to `false` to start Playwright in headed mode. Only used in the [MCP server][3]. Default is `true`.
+
+### `ALUMNIUM_PLAYWRIGHT_NEW_TAB_TIMEOUT`
+
+Timeout in millisends when waiting for a new tab to open after interacting with elements using Playwright driver. Increase when Alumnium fails to detect a new tab. Default is 200.
+
 ### `OPENAI_CUSTOM_URL`
 
 Sets the URL for OpenAI models if you access them via custom endpoint.
 
 [1]: https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/troubleshooting-workflows/enabling-debug-logging
 [2]: https://github.com/alumnium-hq/alumnium/issues/112
+[3]: /docs/guides/mcp

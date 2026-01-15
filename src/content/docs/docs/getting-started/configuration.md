@@ -5,19 +5,19 @@ description: Configure Alumnium with AI providers like OpenAI, Anthropic, Google
 
 Alumnium needs access to an AI model to work. The following models are supported:
 
-| Provider                | Model                 |
-| ----------------------- | --------------------- |
-| [Anthropic][1]          | Claude 4.5 Haiku      |
-| [GitHub][20]            | GPT-4o Mini           |
-| [Google][2]             | Gemini 2.0 Flash      |
-| [OpenAI][3] _(default)_ | GPT-4o Mini           |
-| [DeepSeek][12]          | DeepSeek V3           |
-| [Meta][8]               | Llama 4 Maverick 17B  |
-| [MistralAI][16]         | Mistral Medium 3      |
-| [Ollama][15]            | Mistral Small 3.1 24B |
-| [xAI][18]               | Grok 4 Fast           |
+| Provider                | Model                    |
+| ----------------------- | ------------------------ |
+| [Anthropic][1]          | Claude 4.5 Haiku         |
+| [GitHub][20]            | GPT-4o Mini              |
+| [Google][2]             | Gemini 3 Flash           |
+| [OpenAI][3] _(default)_ | GPT-5 Nano               |
+| [DeepSeek][12]          | DeepSeek R1              |
+| [Meta][8]               | Llama 4 Maverick 17B     |
+| [MistralAI][16]         | Mistral Medium 3         |
+| [Ollama][15]            | Mistral Small 3.1 24B    |
+| [xAI][18]               | Grok 4.1 Fast Reasoning  |
 
-These models were chosen because they provide the best balance between intelligence, performance, and cost. They all behave roughly the same in Alumnium tests.
+These models were chosen because they provide the best balance between intelligence, performance, and cost. Most models now support reasoning capabilities for improved accuracy and decision-making in test automation.
 
 :::tip[Trying out?]
 [Google][7] and [GitHub][21] provide free-of-charge plans in many regions, which are convenient for experimenting. Alumnium automatically retries the requests when hitting rate limits on the free plans.

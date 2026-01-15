@@ -88,7 +88,7 @@ Set to `false` to start Playwright in headed mode. Only used in the [MCP server]
 
 ### `ALUMNIUM_PLAYWRIGHT_NEW_TAB_TIMEOUT`
 
-Timeout in millisends when waiting for a new tab to open after interacting with elements using Playwright driver. Increase when Alumnium fails to detect a new tab. Default is 200.
+Timeout in milliseconds when waiting for a new tab to open after interacting with elements using Playwright driver. Increase when Alumnium fails to detect a new tab. Default is 200.
 
 ### `OPENAI_CUSTOM_URL`
 

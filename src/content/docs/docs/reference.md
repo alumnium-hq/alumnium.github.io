@@ -60,17 +60,17 @@ Select AI provider and model to use.
 
 | Value         | LLM                                             | Notes                                                                    |
 | ------------- | ----------------------------------------------- | ------------------------------------------------------------------------ |
-| anthropic     | claude-haiku-4-5-20251001                       | Anthropic API with extended thinking.                                    |
-| azure_openai  | gpt-4o-mini                                     | Self-hosted Azure OpenAI API. Recommended model version is _2024-07-18_. |
+| anthropic     | claude-haiku-4-5-20251001                       | Anthropic API.                                                           |
+| azure_openai  | gpt-5-nano                                      | Self-hosted Azure OpenAI API. Recommended model version is _2025-08-07_. |
 | aws_anthropic | us.anthropic.claude-haiku-4-5-20251001-v1:0     | Serverless Amazon Bedrock API.                                           |
 | aws_meta      | us.meta.llama4-maverick-17b-instruct-v1:0       | Serverless Amazon Bedrock API.                                           |
-| deepseek      | deepseek-reasoner                               | DeepSeek Platform with reasoning capabilities.                           |
+| deepseek      | deepseek-reasoner                               | DeepSeek Platform.                                                       |
 | github        | gpt-4o-mini                                     | GitHub Models API.                                                       |
-| google        | gemini-3-flash                                  | Google AI Studio API with reasoning support.                             |
+| google        | gemini-3-flash-preview                          | Google AI Studio API.                                                    |
 | mistralai     | mistral-medium-2505                             | Mistral AI Studio API.                                                   |
 | ollama        | mistral-small3.1:24b                            | Local model inference with Ollama.                                       |
-| openai        | gpt-5-nano                                      | OpenAI API with reasoning capabilities.                                  |
-| xai           | grok-4-1-fast-reasoning                         | xAI API with enhanced reasoning.                                         |
+| openai        | gpt-5-nano-2025-08-07                           | OpenAI API.                                                              |
+| xai           | grok-4-1-fast-reasoning                         | xAI API.                                                                 |
 
 You can also override the LLM for each provider by passing it after `/`.
 

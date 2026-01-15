@@ -28,12 +28,6 @@ It's recommended to use [`uv`][2] to automatically install Python and manage vir
 MCP server can be configured to use different AI providers. Follow [configuration guide][4] to learn about environment variables and setup for various AI providers. The examples below use OpenAI by default.
 :::
 
-### Gemini CLI
-
-```bash
-gemini mcp add alumnium --env OPENAI_API_KEY=... uvx --from alumnium alumnium-mcp
-```
-
 ### Claude Code
 
 ```bash
@@ -62,6 +56,12 @@ Add the the following to `mcp.json`:
     }
   }
 }
+```
+
+### Gemini CLI
+
+```bash
+gemini mcp add alumnium --env OPENAI_API_KEY=... uvx --from alumnium alumnium-mcp
 ```
 
 ### Visual Studio Code

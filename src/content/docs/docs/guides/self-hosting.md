@@ -31,7 +31,7 @@ export AWS_REGION_NAME="us-west-1"  # default: us-east-1
 
 ## Azure
 
-Alumnium supports [GPT-4o Mini][5] model on Azure OpenAI service.
+Alumnium supports GPT-5 Nano model on Azure OpenAI service.
 
 Please follow the respective documentation on how to deploy the model to Azure. Once deployed, configure Alumnium to use it by exporting the following environment variables:
 
@@ -39,7 +39,7 @@ Please follow the respective documentation on how to deploy the model to Azure. 
 export ALUMNIUM_MODEL="azure_openai"
 export AZURE_OPENAI_API_KEY="..."
 # Change as needed
-export AZURE_OPENAI_API_VERSION="2024-08-01-preview"
+export AZURE_OPENAI_API_VERSION="2025-03-01-preview"
 export AZURE_OPENAI_ENDPOINT="https://my-model.openai.azure.com"
 ```
 
@@ -58,5 +58,4 @@ export ALUMNIUM_MODEL="ollama"
 [2]: https://aws.amazon.com/bedrock/claude/
 [3]: https://aws.amazon.com/bedrock/llama/
 [4]: https://azure.microsoft.com/en-us/products/ai-services/openai-service
-[5]: https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions
 [6]: https://ollama.com

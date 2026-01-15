@@ -35,9 +35,9 @@ The following actions are currently supported:
 2. Drag one element onto another.
 3. Hover over an element (only web applications).
 4. Press the keyboard keys (Enter, Escape, etc).
-5. Select an option in a dropdown element.
-6. Swipe an element (only mobile applications).
-7. Type text into an element.
+5. Select an option in a dropdown element (only web applications).
+6. Type text into an element.
+7. Upload files (only web applications).
 
 Tailoring instructions for Alumnium takes some time and experimentation and you can achieve the best results by following the guidelines listed below.
 
@@ -246,9 +246,16 @@ const al = new Alumni(driver, { extraTools: [NavigateBackTool] });
 
 The following extra tools are currently supported:
 
-| Tool               | Description                                                             |
-| ------------------ | ----------------------------------------------------------------------- |
-| `NavigateBackTool` | Navigate back to the previous page/screen using the browser/app history |
+| Tool                    | Description                                                             |
+| ----------------------- | ----------------------------------------------------------------------- |
+| `ExecuteJavaScriptTool` | Execute custom JavaScript code in the browser context                   |
+| `NavigateBackTool`      | Navigate back to the previous page/screen using the browser/app history |
+| `NavigateToUrlTool`     | Navigate directly to a specified URL                                    |
+| `ScrollTool`            | Scroll to a specific element                                            |
+
+## Tab Handling
+
+Actions may open new tabs or windows. By default, Alumnium automatically switches to the newly opened tab or window and continues performing actions there.
 
 ## Flakiness
 

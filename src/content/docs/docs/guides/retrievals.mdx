@@ -105,29 +105,12 @@ expect(await al.get("titles of pending tasks")).toEqual(["buy honey", "buy water
 
 Alumnium attempts to cast the data to an appropriate type. The currently supported types are integer, float, boolean, string, and lists of these types.
 
-<LanguageContent lang="python">If the data is not present on the page, Alumnium returns `None`:</LanguageContent>
-
 <LanguageContent lang="typescript">
 You might need to further typecast returned value if you plan to store it in a variable.
 
-If the data is not present on the page, Alumnium returns `null`:
-
 </LanguageContent>
 
-<video
-  class="rounded-xl"
-  alt="A screen recording of Alumnium returning null for data not present on the page"
-  controls
-  controlslist="nofullscreen"
-  disablepictureinpicture
-  muted
-  playsinline
-  width="100%"
-  height="auto"
->
-  <source src="/videos/get-none.mp4" type="video/mp4" />
-  <source src="/videos/get-none.webm" type="video/webm" />
-</video>
+If the data is not present on the page, Alumnium returns a string with explanation why it cannot retrieve the data.
 
 ## Vision
 

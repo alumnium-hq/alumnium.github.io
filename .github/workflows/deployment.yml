@@ -29,6 +29,8 @@ jobs:
     name: Release
     needs: build
     runs-on: ubuntu-latest
+    concurrency:
+      group: release
     environment:
       name: production
       url: ${{ steps.deployment.outputs.page_url }}

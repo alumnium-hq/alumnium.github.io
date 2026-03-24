@@ -22,8 +22,27 @@ The following environment variables can be used to control the behavior of Alumn
 Sets the cache provider used by Alumnium. Supported values are:
 
 - `filesystem` (default)
-- `sqlite`
 - `none` or `false`
+
+### `ALUMNIUM_CACHE_PATH`
+
+Sets the directory where the filesystem cache is stored. Default is `.alumnium/cache`.
+
+### `ALUMNIUM_CHANGE_ANALYSIS`
+
+Set to `true` to enable analysis of UI changes made by `do()`. When enabled, Alumnium captures the accessibility tree before and after each action and returns a description of what changed. Default is `false` when using Alumnium as a library and `true` when running Alumnium MCP server.
+
+### `ALUMNIUM_DELAY`
+
+Delay in seconds between retries when an action fails. Default is `0.5`.
+
+### `ALUMNIUM_EXCLUDE_ATTRIBUTES`
+
+Comma-separated list of accessibility tree attributes to exclude (e.g. `focusable,url`). Useful for reducing accessibility tree size on large pages.
+
+### `ALUMNIUM_FULL_PAGE_SCREENSHOT`
+
+Set to `true` to capture full-page screenshots instead of viewport-only screenshots. Default is `false`.
 
 ### `ALUMNIUM_LOG_LEVEL`
 
@@ -61,12 +80,13 @@ Select AI provider and model to use.
 | Value         | LLM                                             | Notes                                                                    |
 | ------------- | ----------------------------------------------- | ------------------------------------------------------------------------ |
 | anthropic     | claude-haiku-4-5-20251001                       | Anthropic API.                                                           |
+| azure_foundry | gpt-5-nano                                      | Azure AI Foundry API.                                                    |
 | azure_openai  | gpt-5-nano                                      | Self-hosted Azure OpenAI API. Recommended model version is _2025-08-07_. |
 | aws_anthropic | us.anthropic.claude-haiku-4-5-20251001-v1:0     | Serverless Amazon Bedrock API.                                           |
 | aws_meta      | us.meta.llama4-maverick-17b-instruct-v1:0       | Serverless Amazon Bedrock API.                                           |
 | deepseek      | deepseek-reasoner                               | DeepSeek Platform.                                                       |
 | github        | gpt-4o-mini                                     | GitHub Models API.                                                       |
-| google        | gemini-3-flash-preview                          | Google AI Studio API.                                                    |
+| google        | gemini-3.1-flash-lite-preview                   | Google AI Studio API.                                                    |
 | mistralai     | mistral-medium-2505                             | Mistral AI Studio API.                                                   |
 | ollama        | mistral-small3.1:24b                            | Local model inference with Ollama.                                       |
 | openai        | gpt-5-nano-2025-08-07                           | OpenAI API.                                                              |
@@ -78,9 +98,17 @@ You can also override the LLM for each provider by passing it after `/`.
 export ALUMNIUM_MODEL="openai/gpt-5"
 ```
 
+### `ALUMNIUM_MODEL_TIMEOUT`
+
+Timeout in seconds for AI model requests. Default is `90`.
+
 ### `ALUMNIUM_OLLAMA_URL`
 
 Sets the URL for Ollama models if you host them externally on a server.
+
+### `ALUMNIUM_PLANNER`
+
+Set to `false` to disable the planning step. When disabled, the actor's own reasoning is used as the explanation. Default is `true`.
 
 ### `ALUMNIUM_PLAYWRIGHT_HEADLESS`
 
@@ -89,6 +117,18 @@ Set to `false` to start Playwright in headed mode. Only used in the [MCP server]
 ### `ALUMNIUM_PLAYWRIGHT_NEW_TAB_TIMEOUT`
 
 Timeout in milliseconds when waiting for a new tab to open after interacting with elements using Playwright driver. Increase when Alumnium fails to detect a new tab. Default is 200.
+
+### `AZURE_FOUNDRY_API_KEY`
+
+API key used when `ALUMNIUM_MODEL` is set to `azure_foundry`.
+
+### `AZURE_FOUNDRY_API_VERSION`
+
+API version used when `ALUMNIUM_MODEL` is set to `azure_foundry`.
+
+### `AZURE_FOUNDRY_TARGET_URI`
+
+Endpoint URL used when `ALUMNIUM_MODEL` is set to `azure_foundry`.
 
 ### `OPENAI_CUSTOM_URL`
 

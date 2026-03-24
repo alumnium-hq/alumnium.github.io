@@ -31,13 +31,12 @@ Alumnium would likely determine that it needs to type "Mercury element" into the
 
 The following actions are currently supported:
 
-1. Click an element.
+1. Click an element, including options in a dropdown.
 2. Drag one element onto another.
 3. Hover over an element (only web applications).
 4. Press the keyboard keys (Enter, Escape, etc).
-5. Select an option in a dropdown element (only web applications).
-6. Type text into an element.
-7. Upload files (only web applications).
+5. Type text into an element.
+6. Upload files (only web applications).
 
 Tailoring instructions for Alumnium takes some time and experimentation and you can achieve the best results by following the guidelines listed below.
 
@@ -246,16 +245,49 @@ const al = new Alumni(driver, { extraTools: [NavigateBackTool] });
 
 The following extra tools are currently supported:
 
-| Tool                    | Description                                                             |
-| ----------------------- | ----------------------------------------------------------------------- |
-| `ExecuteJavaScriptTool` | Execute custom JavaScript code in the browser context                   |
-| `NavigateBackTool`      | Navigate back to the previous page/screen using the browser/app history |
-| `NavigateToUrlTool`     | Navigate directly to a specified URL                                    |
-| `ScrollTool`            | Scroll to a specific element                                            |
+| Tool                      | Description                                                             |
+| ------------------------- | ----------------------------------------------------------------------- |
+| `DragSliderTool`          | Set a slider element to a desired numeric value                         |
+| `ExecuteJavaScriptTool`   | Execute custom JavaScript code in the browser context                   |
+| `NavigateBackTool`        | Navigate back to the previous page/screen using the browser/app history |
+| `NavigateToUrlTool`       | Navigate directly to a specified URL                                    |
+| `PrintToPdfTool`          | Print the current page to a PDF file                                    |
+| `ScrollTool`              | Scroll to a specific element                                            |
+| `SwitchToNextTabTool`     | Switch to the next browser tab or window                                |
+| `SwitchToPreviousTabTool` | Switch to the previous browser tab or window                            |
 
 ## Tab Handling
 
 Actions may open new tabs or windows. By default, Alumnium automatically switches to the newly opened tab or window and continues performing actions there.
+
+You can disable this behavior by setting `autoswitch_to_new_tab` to `false` and instead navigate between tabs manually using the `SwitchToNextTabTool` and `SwitchToPreviousTabTool` extra tools:
+
+<LanguageContent lang="python">
+
+```python
+from alumnium import Alumni
+from alumnium.tools import SwitchToNextTabTool, SwitchToPreviousTabTool
+
+al = Alumni(driver, extra_tools=[SwitchToNextTabTool, SwitchToPreviousTabTool])
+al.driver.autoswitch_to_new_tab = False
+# do something that opens a new tab
+al.do("switch to the next tab")
+```
+
+</LanguageContent>
+
+<LanguageContent lang="typescript">
+
+```typescript
+import { Alumni, SwitchToNextTabTool, SwitchToPreviousTabTool } from "alumnium";
+
+const al = new Alumni(driver, { extraTools: [SwitchToNextTabTool, SwitchToPreviousTabTool] });
+al.driver.autoswitchToNewTab = false;
+// do something that opens a new tab
+await al.do("switch to the next tab");
+```
+
+</LanguageContent>
 
 ## Flakiness
 

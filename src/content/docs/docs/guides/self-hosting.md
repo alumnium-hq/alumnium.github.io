@@ -9,7 +9,8 @@ Alumnium provides several options for using self-hosted LLMs:
 
 1. Serverless models on [Amazon Bedrock][1].
 2. OpenAI service on [Azure][4].
-3. Local model inference with [Ollama][6].
+3. Models via [Azure AI Foundry][7].
+4. Local model inference with [Ollama][6].
 
 ## Amazon Bedrock
 
@@ -29,7 +30,20 @@ export AWS_SECRET_KEY="..."
 export AWS_REGION_NAME="us-west-1"  # default: us-east-1
 ```
 
-## Azure
+## Azure Foundry
+
+Alumnium supports GPT-5 Nano model on Azure AI Foundry.
+
+Please follow the respective documentation on how to deploy the model to Azure AI Foundry. Once deployed, configure Alumnium to use it by exporting the following environment variables:
+
+```bash
+export ALUMNIUM_MODEL="azure_foundry"
+export AZURE_FOUNDRY_TARGET_URI="https://..."
+export AZURE_FOUNDRY_API_KEY="..."
+export AZURE_FOUNDRY_API_VERSION="..."
+```
+
+## Azure OpenAI
 
 Alumnium supports GPT-5 Nano model on Azure OpenAI service.
 
@@ -59,3 +73,4 @@ export ALUMNIUM_MODEL="ollama"
 [3]: https://aws.amazon.com/bedrock/llama/
 [4]: https://azure.microsoft.com/en-us/products/ai-services/openai-service
 [6]: https://ollama.com
+[7]: https://azure.microsoft.com/en-us/products/ai-foundry

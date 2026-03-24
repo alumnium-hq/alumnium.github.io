@@ -6,7 +6,7 @@ description: Learn how Alumnium caches AI communications and increases test perf
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 import LanguageContent from "../../../../components/LanguageContent.astro";
 
-Caching system allows to significantly increase performance and stability of tests written with Alumnium. It works by persisting the AI responses in a storage, allowing to skip LLM communications unless UI of the application changes. It works best on the CI system which often re-run tests without any underlying changes.
+Caching system allows to significantly increase performance and stability of tests written with Alumnium. It works best on CI systems that frequently re-run tests without underlying changes.
 
 By default, Alumnium provides in-memory cache that is used during tests execution, but discarded at the end. In order to persist the cache database, you need to add a hook in your test runner that _saves_ the cache every time the test passes and _discards_ otherwise:
 
@@ -92,16 +92,26 @@ Once the cache is saved, you should see storage files in the root of your projec
 
 The cache will be updated automatically when the tests or UI of the application change.
 
+## Layers
+
+Alumnium uses two complementary cache layers that work together to skip LLM calls as often as possible.
+
+| Layer    | Description                                                                                                                                                                                                                                                                                                   |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Response | Stores full AI responses keyed by the exact request content — instruction, accessibility tree, and model. A cache miss occurs when the instruction or the page structure changes.                                                                                                                             |
+| Elements | Stores AI decisions together with the UI elements they reference. Resolves cached elements to their current IDs in the accessibility tree, so the cache remains valid even when element IDs change between runs. Also uses fuzzy matching on instructions, so minor rephrasing can still produce a cache hit. |
+
 ## Providers
 
-There are two main cache providers at the moment. You can select the provider by setting the `ALUMNIUM_CACHE` environment variable.
+You can select the cache provider by setting the `ALUMNIUM_CACHE` environment variable.
 
-| Provider                 | Description                                                                                 | Storage                  |
-| ------------------------ | ------------------------------------------------------------------------------------------- | ------------------------ |
-| `filesystem` _(default)_ | Stores the cache in the filesystem directory.                                               | `.alumnium/cache/`       |
-| `sqlite` _(deprecated)_  | Stores the cache in a SQLite database file. Does no work well with parallel test execution. | `.alumnium-cache.sqlite` |
+| Provider                 | Description                                   | Storage            |
+| ------------------------ | --------------------------------------------- | ------------------ |
+| `filesystem` _(default)_ | Stores the cache in the filesystem directory. | `.alumnium/cache/` |
 
 You can also disable the cache completely by setting the provider to `none` or `false`.
+
+The storage directory for the `filesystem` provider can be changed with the `ALUMNIUM_CACHE_PATH` environment variable.
 
 ## GitHub Actions
 
